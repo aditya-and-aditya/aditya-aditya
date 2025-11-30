@@ -163,9 +163,8 @@ export default function Contact() {
               </h4>
               <div className="flex gap-4">
                 {[
-                  { name: 'LinkedIn', url: 'https://linkedin.com' },
-                  { name: 'GitHub', url: 'https://github.com' },
-                  { name: 'Twitter', url: 'https://twitter.com' },
+                  { name: 'Instagram', url: 'https://www.instagram.com/aditya.and.aditya' },
+                  { name: 'Twitter', url: 'https://x.com/Aditya_n_Aditya' },
                 ].map((social) => (
                   <a
                     key={social.name}
@@ -418,4 +417,5 @@ export default function Contact() {
       </div>
     </section>
   );
+
 }
