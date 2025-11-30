@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Github, Linkedin, Twitter, Send, ArrowRight, Heart } from 'lucide-react';
+import { Instagram, Twitter, Send, ArrowRight, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
@@ -20,10 +20,9 @@ export default function Footer() {
     { href: '/#contact', label: 'Careers' },
   ];
 
-  const socialLinks = [
-    { href: 'https://linkedin.com', icon: Linkedin, label: 'LinkedIn' },
-    { href: 'https://github.com', icon: Github, label: 'GitHub' },
-    { href: 'https://twitter.com', icon: Twitter, label: 'Twitter' },
+  const socialLinks =[
+    { href: 'https://www.instagram.com/aditya.and.aditya', icon: Instagram, label: 'Instagram' },
+    { href: 'https://x.com/Aditya_n_Aditya', icon: Twitter, label: 'Twitter' },
   ];
 
   const brandColors = {
@@ -158,4 +157,5 @@ export default function Footer() {
       </div>
     </footer>
   );
+
 }
