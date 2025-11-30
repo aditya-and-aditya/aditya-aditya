@@ -6,11 +6,6 @@ import Footer from "./_components/layout/Footer";
 export const metadata: Metadata = {
   title: "Aditya & Aditya - Tech Agency",
   description: "Web Development, AI Integration, and Cloud Solutions",
-  icons: {
-    icon: '/Logo.png',
-    shortcut: '/Logo.png',
-    apple: '/Logo.png',
-  },
 };
 
 export default function RootLayout({
