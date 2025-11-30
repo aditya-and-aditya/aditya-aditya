@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { Rocket, HeartHandshake, Code2, CheckCircle, Quote } from 'lucide-react';
 import { useMemo } from 'react';
+import Image from 'next/image'; 
 
 function ValueCard({
   icon: Icon,
@@ -42,10 +43,12 @@ function ValueCard({
 function TeamMember({
   name,
   role,
+  image,
   index,
 }: {
   name: string;
   role: string;
+  image: string;
   index: number;
 }) {
   return (
@@ -57,13 +60,16 @@ function TeamMember({
       className="text-center"
     >
       <div
-        className="w-32 h-32 rounded-full mx-auto mb-4 border-4 overflow-hidden"
+        className="w-32 h-32 rounded-full mx-auto mb-4 border-4 overflow-hidden relative"
         style={{ borderColor: 'rgba(55, 168, 177, 0.2)' }}
       >
-        {/* Placeholder for actual image */}
-        <div className="w-full h-full bg-gray-100 flex items-center justify-center text-gray-300">
-           <span className="text-3xl font-bold">{name.charAt(0)}</span>
-        </div>
+        <Image
+          src={image}
+          alt={name}
+          width={128} 
+          height={128}
+          className="object-cover w-full h-full"
+        />
       </div>
       <h4 className="text-lg font-bold" style={{ color: '#092d60' }}>
         {name}
@@ -102,8 +108,16 @@ export default function About() {
 
   const teamMembers = useMemo(
     () => [
-      { name: 'Aditya Dixit', role: 'Co-Founder & The CEO guy' },
-      { name: 'Aditya Upadhyay', role: 'Co-Founder & The CTO guy' },
+      { 
+        name: 'Aditya Dixit', 
+        role: 'Co-Founder & The CEO guy',
+        image: '/images/dixit.png' 
+      },
+      { 
+        name: 'Aditya Upadhyay', 
+        role: 'Co-Founder & The CTO guy',
+        image: '/images/upadhyay.png'
+      },
     ],
     []
   );
@@ -183,10 +197,10 @@ export default function About() {
           <div className="text-center mb-12">
             <span className="text-sm font-bold tracking-wider uppercase mb-2 block" style={{ color: '#37a8b1' }}>The Builders</span>
             <h3
-                className="text-3xl font-bold"
-                style={{ color: '#092d60' }}
+              className="text-3xl font-bold"
+              style={{ color: '#092d60' }}
             >
-                Meet The Founders
+              Meet The Founders
             </h3>
           </div>
           
