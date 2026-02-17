@@ -4,8 +4,8 @@ import Header from "./_components/layout/Header";
 import Footer from "./_components/layout/Footer";
 
 export const metadata: Metadata = {
-  title: "Aditya & Aditya - Tech Agency",
-  description: "Web Development, AI Integration, and Cloud Solutions",
+  title: "Aditya & Aditya - The Tech Bros",
+  description: "NEO-Business oriented Tech Solutions with Aditya Dixit & Aditya Upadhyay",
 };
 
 export default function RootLayout({
