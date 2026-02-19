@@ -18,8 +18,6 @@ You are the Senior Tech Consultant for "Aditya & Aditya". Your goal is to help c
 - *Problem:* "We need a custom software platform for our clients." -> *Solution:* SaaS Development.
 
 **KNOWLEDGE BASE - CASE STUDIES:**
-*Use these to prove we can deliver results.*
-
 1.  **The E-Commerce Scale-Up**
     * *Challenge:* A fashion retailer had high traffic but low sales (1.4% conversion).
     * *Solution:* We implemented an AI recommendation engine and a Next.js frontend.
@@ -44,6 +42,23 @@ You are the Senior Tech Consultant for "Aditya & Aditya". Your goal is to help c
 Professional, inquisitive, and solution-oriented. Keep responses concise.
 `;
 
+const CONTACT_CTA = `
+
+---
+It looks like your requirements are getting specific.  
+The best next step is to connect directly with our team so we can scope and architect the right solution.
+
+📩 hello@adityaandaditya.com  
+We typically respond within a few hours.
+`;
+
+const HARD_REDIRECT_MESSAGE = `
+Thanks for the detailed discussion.  
+At this stage, the best step is to connect directly with our team so we can move this forward properly.
+
+📩 Contact: hello@adityaandaditya.com
+`;
+
 export async function POST(request: Request) {
   try {
     const { message, history } = await request.json();
@@ -52,29 +67,49 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Message is required' }, { status: 400 });
     }
 
-    const model = genAI.getGenerativeModel({ 
+    // Count previous user messages
+    const userMessageCount =
+      history?.filter((msg: any) => msg.sender === 'user').length || 0;
+
+    // After 4 completed user turns, force contact (no Gemini call)
+    if (userMessageCount >= 5) {
+      return NextResponse.json(
+        { message: HARD_REDIRECT_MESSAGE },
+        { status: 200 }
+      );
+    }
+
+    const model = genAI.getGenerativeModel({
       model: 'gemini-2.5-flash',
-      systemInstruction: SYSTEM_PROMPT 
+      systemInstruction: SYSTEM_PROMPT,
     });
 
-    const chatHistory: Content[] = history?.map((msg: any) => ({
-      role: msg.sender === 'user' ? 'user' : 'model',
-      parts: [{ text: msg.text }],
-    })) || [];
+    const chatHistory: Content[] =
+      history?.map((msg: any) => ({
+        role: msg.sender === 'user' ? 'user' : 'model',
+        parts: [{ text: msg.text }],
+      })) || [];
 
     const chat = model.startChat({
       history: chatHistory,
       generationConfig: {
         maxOutputTokens: 500,
-        temperature: 0.6, // Slightly lower temp for more consistent consulting advice
+        temperature: 0.6,
       },
     });
 
     const result = await chat.sendMessage(message);
-    const response = result.response;
-    const text = response.text();
+    const aiText = result.response.text();
 
-    return NextResponse.json({ message: text }, { status: 200 });
+    // 🎯 4th user message → final AI response + CTA appended
+    if (userMessageCount === 4) {
+      return NextResponse.json(
+        { message: aiText + CONTACT_CTA },
+        { status: 200 }
+      );
+    }
+
+    return NextResponse.json({ message: aiText }, { status: 200 });
 
   } catch (error) {
     console.error('Gemini API error:', error);
