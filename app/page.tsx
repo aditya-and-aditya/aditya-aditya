@@ -5,13 +5,15 @@ import About from './_components/sections/About';
 import Contact from './_components/sections/Contact';
 import Chatbot from './_components/sections/Chatbot';
 import FeaturedProjectSection from './_components/sections/ZeroStudy';
+import ClientingTeaser from './_components/sections/Hexadon';
 
 export default function Home() {
   return (
     <>
       <Hero />
+      <ClientingTeaser />
+      <Services />      
       <FeaturedProjectSection />
-      <Services />
       <CaseStudies />
       <About />
       <Chatbot />
