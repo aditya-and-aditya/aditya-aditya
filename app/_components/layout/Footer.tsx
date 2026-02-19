@@ -20,7 +20,7 @@ export default function Footer() {
     { href: '/#contact', label: 'Careers' },
   ];
 
-  const socialLinks =[
+  const socialLinks = [
     { href: 'https://www.instagram.com/aditya.and.aditya', icon: Instagram, label: 'Instagram' },
     { href: 'https://x.com/Aditya_n_Aditya', icon: Twitter, label: 'Twitter' },
   ];
@@ -157,5 +157,4 @@ export default function Footer() {
       </div>
     </footer>
   );
-
 }

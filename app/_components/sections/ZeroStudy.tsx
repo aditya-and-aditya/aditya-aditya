@@ -16,7 +16,7 @@ const featuredZeroStudy = {
 const DEEP_BLUE = '#092d60';
 const ACCENT_CYAN = '#37a8b1';
 // Retaining a bright color for the bottom split to keep the visual contrast from the original image
-const SPLIT_COLOR = '#white'; 
+const SPLIT_COLOR = '#eff0ef'; 
 
 // A custom animated graph component
 const AnimatedGraph = () => {
@@ -69,7 +69,7 @@ export default function FeaturedProjectSection() {
       <div className="absolute top-0 inset-x-0 h-1/2" style={{ zIndex: 0 }}>
         <div 
           className="absolute inset-0 opacity-20" 
-          style={{ backgroundImage: 'linear-gradient(to bottom right, #092d60, #37a8b1)' }} 
+          style={{ backgroundImage: 'white' }} 
         />
       </div>
       

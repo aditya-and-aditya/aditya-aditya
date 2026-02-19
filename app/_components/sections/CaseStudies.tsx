@@ -250,7 +250,7 @@ export default function CaseStudies() {
             className="text-4xl md:text-5xl font-bold mb-6"
             style={{ color: '#092d60' }}
           >
-            Case Studies
+            Other Case Studies
           </h2>
           <p className="text-lg md:text-xl" style={{ color: '#666' }}>
             Real problems solved. Real results delivered. Discover how we've helped businesses transform their operations.
