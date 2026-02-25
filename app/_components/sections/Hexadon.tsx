@@ -178,7 +178,7 @@ export default function ClientingTeaser() {
       return {
         id: 'intro',
         title: 'Explore the 6 Pillars',
-        description: 'Select points on the model to reveal our methodology. Combine multiple points to see how they work together to reduce churn.',
+        description: 'Select the points on the HexaDON to get to know a teaser about what we come up in the modern day online shopping experience and how they optimize themselves in combination.',
         isIntro: true
       };
     }
@@ -233,7 +233,7 @@ export default function ClientingTeaser() {
                 {/* Header Label */}
                 <div className="flex items-center gap-2 text-sm font-semibold tracking-wider uppercase opacity-80" style={{ color: ACCENT_CYAN }}>
                   {activeContent.id === 'intro' ? <Sparkles className="w-4 h-4 animate-pulse" /> : <Hexagon className="w-4 h-4" />}
-                  <span>{activeContent.id === 'intro' ? 'Start Here' : 'Research Findings'}</span>
+                  <span>{activeContent.id === 'intro' ? 'Clienting Hexagon' : 'Research Findings'}</span>
                 </div>
 
                 {/* Main Content Area */}
@@ -338,7 +338,7 @@ export default function ClientingTeaser() {
                           className="cursor-pointer group/node"
                         >
                           {/* Hover Target Area */}
-                          <circle cx={point.x} cy={point.y} r="8" fill="transparent" />
+                          <circle cx={point.x} cy={point.y} r="3" fill="transparent" />
                           
                           {/* Pulse Effect for Empty State */}
                           {selectedIndices.length === 0 && (
