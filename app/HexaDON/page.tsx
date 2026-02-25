@@ -98,7 +98,7 @@ export default function InteractiveStudyPage() {
       // 3. Call your new Gemini API Route
       try {
           // Determine the context to send to Gemini based on which page we are on
-          const currentTopic = activeContent?.title || 'B2B Retail AI Strategies';
+          const currentTopic = activeContent?.title || 'Clienting and Retail Strategies for E-Store';
 
 const response = await fetch('/api/client', {
     method: 'POST',
@@ -294,4 +294,5 @@ const response = await fetch('/api/client', {
       </section>
     </main>
   );
+
 }
