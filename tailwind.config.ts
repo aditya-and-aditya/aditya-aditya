@@ -15,6 +15,10 @@ const config: Config = {
         "accent-dark": "#2a8490",
         background: "#eff0ef",
       },
+      fontFamily: {
+        serif: ["var(--font-cormorant)", "serif"],
+        sans: ["var(--font-inter)", "sans-serif"],
+      },
     },
   },
   plugins: [],
