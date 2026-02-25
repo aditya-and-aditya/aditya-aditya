@@ -146,7 +146,7 @@ export default function CartThatUnderstoodHer() {
           <motion.div whileHover={{ x: 5 }} transition={{ duration: 0.3 }} className="my-12 rounded-r-md border-l-4 bg-[#0c3b7a]/50 p-8 italic shadow-xl backdrop-blur-md" style={{ borderColor: ACCENT_CYAN }}>
             <span className="mb-4 block font-sans text-xs font-bold uppercase not-italic tracking-widest" style={{ color: ACCENT_CYAN }}>Conversational Commerce Reimagined</span>
             <p className="mb-4 text-slate-200">Now imagine Priya opens the same website, but this time a small prompt appears: <em style={{ color: ACCENT_CYAN }}>"Tell us what you're shopping for."</em> She types: "A wedding in Jaipur next Saturday. Outdoor evening venue. I want to look Indian but not too traditional. My budget is around ₹3,500."</p>
-            <p className="text-slate-200">Instead of wrestling with filters, the system handles the complexity. The page reorganises itself around her. Not 2,000 results — twenty. All in her size. All within budget. She adds one to the cart in under four minutes.</p>
+            <p className="text-slate-200">Instead of wrestling with filters, the system handles the complexity. The page reorganises itself around her. Not 2,000 results just twenty. All in her size. All within budget. She adds one to the cart in under four minutes.</p>
           </motion.div>
         </FadeInText>
 
@@ -234,3 +234,4 @@ export default function CartThatUnderstoodHer() {
     </div>
   );
 }
+
