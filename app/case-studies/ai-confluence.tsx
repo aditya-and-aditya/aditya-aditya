@@ -104,7 +104,7 @@ export default function CartThatUnderstoodHer() {
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.6 }}
           className="mb-12 max-w-2xl text-xl font-light leading-relaxed text-slate-300"
         >
-          A story about the quiet revolution happening at the intersection of artificial intelligence and the online shopping experience — and why it matters more than we think.
+          A story about the quiet revolution happening at the intersection of artificial intelligence and the online shopping experience and why it matters more than we think.
         </motion.p>
       </motion.header>
 
@@ -130,7 +130,7 @@ export default function CartThatUnderstoodHer() {
         
         {/* PART ONE */}
         <FadeInText>
-          <p className="mb-8">It's 11:47 PM on a Tuesday. Priya has a wedding to attend in nine days — her closest college friend's — and she still has nothing to wear.</p>
+          <p className="mb-8">It's 11:47 PM on a Tuesday. Priya has a wedding to attend in nine days of her closest college friend's and she still has nothing to wear.</p>
           <p className="mb-8">She opens her laptop. The familiar white rectangle of a shopping homepage glows back at her. She types "ethnic wear for wedding" into the search bar and hits enter. 4,312 results. She adds a filter: her size. 3,890 results. She adds another: under ₹4,000. 2,100 results. She sorts by "most popular." She scrolls. She sighs. She closes the tab.</p>
         </FadeInText>
 
@@ -164,12 +164,12 @@ export default function CartThatUnderstoodHer() {
             <span className="mb-3 block font-sans text-xs font-medium uppercase tracking-[0.2em]" style={{ color: ACCENT_CYAN }}>Part Two</span>
             The Interface That Listens
           </h2>
-          <p className="mb-8">The most interesting design question in e-commerce right now isn't "how do we show more products?" It's "how do we show fewer — but better?" When users stop querying a database and start having a conversation, the entire information architecture has to change.</p>
+          <p className="mb-8">The most interesting design question in e-commerce right now isn't "how do we show more products?" It's "how do we show fewer, but better?" When users stop querying a database and start having a conversation, the entire information architecture has to change.</p>
         </FadeInText>
 
         <div className="my-12 grid grid-cols-1 gap-6 md:grid-cols-2">
           <InsightCard title="Beyond 'You Might Also Like'" delay={0.1}>
-            Right now most platforms do basic suggestions, but AI can go much deeper. It understands context—time of day, occasion, budget signals—and adapts the <em>entire interface</em>, not just the product carousel. Imagine a homepage that genuinely restructures itself based on what you're likely doing right now.
+            Right now most platforms do basic suggestions, but AI can go much deeper. It understands context, time of day, occasion, budget signals, and adapts the <em>entire interface</em>, not just the product carousel. Imagine a homepage that genuinely restructures itself based on what you're likely doing right now.
           </InsightCard>
           
           <InsightCard title="The Multimodal Reality" delay={0.2}>
@@ -209,7 +209,7 @@ export default function CartThatUnderstoodHer() {
             <span className="mb-3 block font-sans text-xs font-medium uppercase tracking-[0.2em]" style={{ color: ACCENT_CYAN }}>Epilogue</span>
             What We're Really Building
           </h2>
-          <p className="mb-8">A big UX challenge looming over all of this is that AI-driven personalization can easily feel manipulative or opaque. The best implementations will be ones that are transparent about <em>why</em> something is being recommended and give users genuine control—that's a real design problem worth solving.</p>
+          <p className="mb-8">A big UX challenge looming over all of this is that AI-driven personalization can easily feel manipulative or opaque. The best implementations will be ones that are transparent about <em>why</em> something is being recommended and give users genuine control, that's a real design problem worth solving.</p>
           <p className="mb-8">The confluence is most powerful when AI handles complexity invisibly, making the experience feel effortless rather than automated. The risk is when it prioritizes conversion metrics over actual user needs, which inevitably erodes trust over time.</p>
           <p className="mb-8 font-medium text-white drop-shadow-sm">The cart that understood her. That's the whole ambition, really. Everything else is just engineering.</p>
         </FadeInText>
