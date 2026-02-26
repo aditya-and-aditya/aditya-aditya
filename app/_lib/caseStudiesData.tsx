@@ -2,6 +2,7 @@ import React from 'react';
 import CartThatUnderstoodHer from '../case-studies/ai-confluence';
 import LuxuryClienteling from '../case-studies/luxury-clienteling';
 import MarketPlaceCaseStudy from '../case-studies/market-place';
+import LivingMachine from '../case-studies/living-machine';
 
 export interface CaseStudy {
   id: string;
@@ -51,5 +52,15 @@ export const caseStudiesData: CaseStudy[] = [
       { metric: 'LTV Increase', value: '4.2×' },
     ],
     content: <MarketPlaceCaseStudy />
+    id: 'living-machine',
+    category: 'Visualized · Systems',
+    title: 'The Living Machine',
+    description:
+      'A cinematic visualization of distributed systems. Explore how machines agree, fail, and scale in the digital void.',
+    metrics: [
+      { metric: 'Architecture', value: 'Distributed' },
+      { metric: 'Interaction', value: 'Deep' },
+    ],
+    content: <LivingMachine />
   },
 ];
