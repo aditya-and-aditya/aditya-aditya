@@ -52,6 +52,8 @@ export const caseStudiesData: CaseStudy[] = [
       { metric: 'LTV Increase', value: '4.2×' },
     ],
     content: <MarketPlaceCaseStudy />
+  },
+  {
     id: 'living-machine',
     category: 'Visualized · Systems',
     title: 'The Living Machine',
