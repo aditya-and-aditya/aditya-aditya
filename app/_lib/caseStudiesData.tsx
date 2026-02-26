@@ -30,9 +30,9 @@ export const caseStudiesData: CaseStudy[] = [
     content: <CartThatUnderstoodHer />
   },
   {
-    id: 'luxury-clienteling',
+    id: 'luxury-clienting',
     category: 'Strategy · Architecture',
-    title: 'The Architecture of Luxury Clienteling',
+    title: 'The Architecture of Luxury Clienting',
     description:
       'A deep dive into the six layers of modern luxury commerce: Persona, Branding, Presence, Insights, Authority, and UX.',
     metrics: [

@@ -79,7 +79,7 @@ const ChapterIndicator = ({ currentChapter }: { currentChapter: number }) => (
 // --- Hero Section ---
 
 const Hero = () => {
-  const words = "The Architecture of Luxury Clienteling".split(" ");
+  const words = "The Architecture of Luxury Clienting".split(" ");
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
