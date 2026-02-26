@@ -268,10 +268,20 @@ const Hero = () => {
            </h1>
         </motion.div>
 
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 animate-bounce">
-            <span className="text-[10px] font-dm tracking-widest uppercase">Scroll to Diagnose</span>
-            <ChevronDown size={16} />
-        </div>
+        <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 3, duration: 1 }}
+            className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-30"
+        >
+            <span className="text-[11px] font-dm tracking-[0.3em] uppercase text-hex-gold animate-pulse">Scroll to Diagnose</span>
+            <motion.div
+                animate={{ y: [0, 8, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            >
+                <ChevronDown size={24} className="text-hex-gold" />
+            </motion.div>
+        </motion.div>
 
         {/* Background Textures */}
         <div className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-white/5 to-transparent pointer-events-none" />
@@ -491,11 +501,6 @@ const PillarContent = ({ pillar, audience, onInView }: { pillar: typeof PILLARS[
                                 {content.result}
                             </p>
 
-                            <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/10">
-                                {content.metrics.map((m, i) => (
-                                    <MetricItem key={i} value={m.value} label={m.label} />
-                                ))}
-                            </div>
                         </motion.div>
                     </motion.div>
                 </AnimatePresence>

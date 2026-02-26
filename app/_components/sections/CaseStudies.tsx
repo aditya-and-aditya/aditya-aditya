@@ -51,22 +51,24 @@ function CaseStudyCard({ study, index }: { study: CaseStudy; index: number }) {
           </p>
 
           {/* Metrics */}
-          <div className="grid grid-cols-2 gap-3 mb-4">
-            {study.metrics.map((metric, idx) => (
-              <div
-                key={idx}
-                className="p-3 rounded-lg"
-                style={{ backgroundColor: 'rgba(55, 168, 177, 0.05)' }}
-              >
-                <div className="text-xl font-bold" style={{ color: '#37a8b1' }}>
-                  {metric.value}
+          {study.id !== 'market-place' && (
+            <div className="grid grid-cols-2 gap-3 mb-4">
+              {study.metrics.map((metric, idx) => (
+                <div
+                  key={idx}
+                  className="p-3 rounded-lg"
+                  style={{ backgroundColor: 'rgba(55, 168, 177, 0.05)' }}
+                >
+                  <div className="text-xl font-bold" style={{ color: '#37a8b1' }}>
+                    {metric.value}
+                  </div>
+                  <div className="text-xs" style={{ color: '#666' }}>
+                    {metric.metric}
+                  </div>
                 </div>
-                <div className="text-xs" style={{ color: '#666' }}>
-                  {metric.metric}
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
 
           {/* CTA */}
           <div
