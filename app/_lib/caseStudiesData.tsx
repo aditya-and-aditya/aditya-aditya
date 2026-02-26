@@ -1,6 +1,7 @@
 import React from 'react';
 import CartThatUnderstoodHer from '../case-studies/ai-confluence';
 import LuxuryClienteling from '../case-studies/luxury-clienteling';
+import MarketPlaceCaseStudy from '../case-studies/market-place';
 
 export interface CaseStudy {
   id: string;
@@ -38,5 +39,17 @@ export const caseStudiesData: CaseStudy[] = [
       { metric: 'Trust', value: 'Absolute' },
     ],
     content: <LuxuryClienteling />
+  },
+  {
+    id: 'market-place',
+    category: 'Strategy · Marketplace & Retail',
+    title: 'The Marketplace & The Retailer',
+    description:
+      'A deep dive into how clienting transforms transactions into lasting relationships across both mass-market and boutique scales.',
+    metrics: [
+      { metric: 'Returns', value: '↓ 30%' },
+      { metric: 'LTV Increase', value: '4.2×' },
+    ],
+    content: <MarketPlaceCaseStudy />
   },
 ];
