@@ -66,7 +66,7 @@ const WireframeCompare = () => (
           initial={{ width: "0%" }} whileInView={{ width: "100%" }} viewport={{ once: true }} transition={{ duration: 2, ease: "easeOut", delay: 0.3 }}
           className="overflow-hidden whitespace-nowrap font-mono text-sm text-[#37a8b1]/90"
         >
-          "A wedding in Jaipur under ₹4k..."
+          "A daytime wedding in Jaipur, outfit under ₹4k..."
         </motion.div>
         <motion.span animate={{ opacity: [1, 0] }} transition={{ repeat: Infinity, duration: 0.8 }} className="ml-1 inline-block h-5 w-1.5 bg-[#37a8b1]" />
       </div>
@@ -253,8 +253,8 @@ export default function CartThatUnderstoodHer() {
         <FadeInText delay={0.1}>
           <div className="mt-32 ml-auto max-w-2xl border-r-4 border-[#37a8b1] bg-linear-to-l from-[#37a8b1]/10 to-transparent py-8 pr-10 text-right">
             <h2 className="mb-6 font-serif text-4xl font-bold text-white">What We're Really Building</h2>
-            <p className="mb-6 text-xl text-slate-300">The confluence is most powerful when AI handles complex data models invisibly, providing genuine utility rather than an illusion of choice. The cart that understood her isn't just a search engine—it is a digital advocate.</p>
-            <p className="font-serif text-2xl italic text-white">Everything else is just engineering.</p>
+            <p className="mb-6 text-xl text-slate-300">The confluence is most powerful when AI handles complex data models invisibly, providing genuine utility rather than an illusion of choice. The cart that understood her isn't just a search engine, it is more of a digital advocate.</p>
+            <p className="font-serif text-2xl italic text-white">That's the whole ambition, really. Everything else is just engineering.</p>
           </div>
         </FadeInText>
 
