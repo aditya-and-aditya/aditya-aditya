@@ -3,6 +3,7 @@ import CartThatUnderstoodHer from '../case-studies/ai-confluence';
 import LuxuryClienteling from '../case-studies/luxury-clienteling';
 import MarketPlaceCaseStudy from '../case-studies/market-place';
 import LivingMachine from '../case-studies/living-machine';
+import DTCCaseStudy from '../case-studies/dtc';
 
 export interface CaseStudy {
   id: string;
@@ -64,5 +65,17 @@ export const caseStudiesData: CaseStudy[] = [
       { metric: 'Interaction', value: 'Deep' },
     ],
     content: <LivingMachine />
+  },
+  {
+    id: 'dtc',
+    category: 'Case Study · DTC',
+    title: 'HexaDON × Direct-to-Consumer',
+    description:
+      'A deep dive into how HexaDON principles transformed a fine fragrance brand into an experience of desire.',
+    metrics: [
+      { metric: 'Cart Abandonment', value: '↓ 42%' },
+      { metric: 'LTV', value: '↑ 2.8×' },
+    ],
+    content: <DTCCaseStudy />
   },
 ];
