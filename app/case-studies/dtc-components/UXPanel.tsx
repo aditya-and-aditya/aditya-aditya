@@ -11,23 +11,22 @@ export default function UXPanel() {
   const [showNextFrequency, setShowNextFrequency] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
+  // helper to advance the scrollable stage container; we derive the
+  // number of stages from the DOM instead of relying on the `stages`
+  // array so this function can be declared above it and avoid
+  // lint warnings about referencing a variable before its definition.
   const nextStage = () => {
-    if (activeStage < stages.length - 1) {
-      scrollRef.current?.scrollTo({
-        top: (activeStage + 1) * scrollRef.current.clientHeight,
+    if (!scrollRef.current) return;
+    const { scrollTop, clientHeight, children } = scrollRef.current;
+    const current = Math.round(scrollTop / clientHeight);
+    if (current < children.length - 1) {
+      scrollRef.current.scrollTo({
+        top: (current + 1) * clientHeight,
         behavior: 'smooth'
       });
     }
   };
 
-  const prevStage = () => {
-    if (activeStage > 0) {
-      scrollRef.current?.scrollTo({
-        top: (activeStage - 1) * scrollRef.current.clientHeight,
-        behavior: 'smooth'
-      });
-    }
-  };
 
   // Implement internal scroll lock logic
   useEffect(() => {
@@ -271,6 +270,7 @@ export default function UXPanel() {
       )
     }
   ];
+
 
   return (
     <div

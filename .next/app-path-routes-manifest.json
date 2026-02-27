@@ -1,0 +1,14 @@
+{
+  "/HexaDON/[slug]/page": "/HexaDON/[slug]",
+  "/HexaDON/page": "/HexaDON",
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/api/chat/route": "/api/chat",
+  "/api/client/route": "/api/client",
+  "/api/contact/route": "/api/contact",
+  "/case-studies/[id]/page": "/case-studies/[id]",
+  "/icon.png/route": "/icon.png",
+  "/page": "/",
+  "/services/page": "/services",
+  "/zero-study/page": "/zero-study"
+}

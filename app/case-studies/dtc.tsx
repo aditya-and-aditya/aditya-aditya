@@ -40,17 +40,21 @@ const SILLAGE_COLORS = {
   white: '#faf7f2',
 };
 
-const pillars = [
-  { id: '01', title: 'Authority', component: <AuthorityPanel /> },
-  { id: '02', title: 'Persona', component: <PersonaPanel /> },
-  { id: '03', title: 'Presence', component: <PresencePanel /> },
-  { id: '04', title: 'Insights', component: <InsightsPanel /> },
-  { id: '05', title: 'Branding', component: <BrandingPanel /> },
-  { id: '06', title: 'UX/CX', component: <UXPanel /> },
-];
-
 export default function DTCCaseStudy() {
   const [activePillar, setActivePillar] = useState('01');
+  
+  // Pillar definitions are static; memoize so we keep stable references
+  const pillars = React.useMemo(
+    () => [
+      { id: '01', title: 'Authority', Component: AuthorityPanel },
+      { id: '02', title: 'Persona', Component: PersonaPanel },
+      { id: '03', title: 'Presence', Component: PresencePanel },
+      { id: '04', title: 'Insights', Component: InsightsPanel },
+      { id: '05', title: 'Branding', Component: BrandingPanel },
+      { id: '06', title: 'UX/CX', Component: UXPanel },
+    ],
+    []
+  );
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -277,7 +281,15 @@ export default function DTCCaseStudy() {
         <div className="hidden lg:block lg:w-[55%]">
           <div className="sticky top-[10vh] h-[80vh] flex flex-col justify-center">
             <DemoShell activePillar={activePillar}>
-              {pillars.find(p => p.id === activePillar)?.component}
+              {/* determine active component once to avoid creating a new element on every render */}
+              {(() => {
+                const pillar = pillars.find(p => p.id === activePillar);
+                if (!pillar) return null;
+                const ActiveComponent = pillar.Component;
+                // key forces remount when the pillar changes (though the parent motion.div already
+                // handles this, it's helpful for clarity/testing)
+                return <ActiveComponent key={activePillar} />;
+              })()}
             </DemoShell>
 
             <div className="mt-8 flex justify-between items-center px-6 font-mono text-[0.6rem] uppercase tracking-widest opacity-30">

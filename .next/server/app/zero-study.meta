@@ -1,0 +1,15 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/zero-study/layout,_N_T_/zero-study/page,_N_T_/zero-study"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/zero-study/__PAGE__",
+    "/zero-study",
+    "/_index",
+    "/_head"
+  ]
+}

@@ -10,7 +10,7 @@ interface DemoShellProps {
 
 export default function DemoShell({ activePillar, children }: DemoShellProps) {
   return (
-    <div className="h-full w-full overflow-hidden rounded-xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] bg-[#f2ece0] border border-[#b5893a]/10 relative group">
+    <div className="h-full w-full overflow-hidden rounded-xl shadow-[0_40px_80px_-15px_rgba(0,0,0,0.3)] border border-[#b5893a]/10 relative group">
       <AnimatePresence mode="wait">
         <motion.div
           key={activePillar}

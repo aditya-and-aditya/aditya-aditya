@@ -1,0 +1,53 @@
+module.exports=[18622,(e,t,r)=>{t.exports=e.x("next/dist/compiled/next-server/app-page-turbo.runtime.prod.js",()=>require("next/dist/compiled/next-server/app-page-turbo.runtime.prod.js"))},56704,(e,t,r)=>{t.exports=e.x("next/dist/server/app-render/work-async-storage.external.js",()=>require("next/dist/server/app-render/work-async-storage.external.js"))},32319,(e,t,r)=>{t.exports=e.x("next/dist/server/app-render/work-unit-async-storage.external.js",()=>require("next/dist/server/app-render/work-unit-async-storage.external.js"))},24725,(e,t,r)=>{t.exports=e.x("next/dist/server/app-render/after-task-async-storage.external.js",()=>require("next/dist/server/app-render/after-task-async-storage.external.js"))},70406,(e,t,r)=>{t.exports=e.x("next/dist/compiled/@opentelemetry/api",()=>require("next/dist/compiled/@opentelemetry/api"))},93695,(e,t,r)=>{t.exports=e.x("next/dist/shared/lib/no-fallback-error.external.js",()=>require("next/dist/shared/lib/no-fallback-error.external.js"))},61378,e=>{"use strict";var t=e.i(47909),r=e.i(74017),n=e.i(96250),a=e.i(59756),o=e.i(61916),s=e.i(14444),i=e.i(10680),l=e.i(69741),u=e.i(16795),d=e.i(87718),c=e.i(95169),p=e.i(47587),h=e.i(66012),m=e.i(70101),g=e.i(74838),f=e.i(10372),v=e.i(93695);e.i(52474);var x=e.i(220),y=e.i(29642),R=e.i(89171);let w=new y.GoogleGenerativeAI(process.env.GEMINI_API_KEY),A=`
+You are the Senior Tech Consultant for "Aditya & Aditya". Your goal is to help clients identify the perfect tech solution for their business problems.
+
+**YOUR BEHAVIORAL PROTOCOL:**
+1.  **The "Doctor" Approach:** Do not just list services. If a user says "I need help with my business," ask 2-3 probing questions to diagnose their bottleneck (e.g., "Are you struggling with manual processes, low conversion rates, or data management?").
+2.  **Recommendation Engine:** Once you understand their pain point, prescribe the specific "Aditya & Aditya" service that solves it.
+3.  **Proof over Promises:** Back up your recommendation by citing a relevant *Case Study* from the list below.
+
+**SERVICE MAPPING (Use this to match problems to solutions):**
+- *Problem:* "My team wastes time on repetitive admin tasks." -> *Solution:* AI Agentic Workflows / Automation.
+- *Problem:* "We have data but don't know what to do with it." -> *Solution:* Real-Time Analytics & Data Engineering.
+- *Problem:* "Our website traffic isn't buying anything." -> *Solution:* Full-Stack Engineering (Performance Optimization) or AI Personalization.
+- *Problem:* "We need a custom software platform for our clients." -> *Solution:* SaaS Development.
+
+**KNOWLEDGE BASE - CASE STUDIES:**
+1.  **The E-Commerce Scale-Up**
+    * *Challenge:* A fashion retailer had high traffic but low sales (1.4% conversion).
+    * *Solution:* We implemented an AI recommendation engine and a Next.js frontend.
+    * *Result:* Conversion rate jumped to **3.1%**, generating **$1.8M** in new revenue.
+
+2.  **The Logistics Automation**
+    * *Challenge:* A D2C brand was drowning in manual order processing.
+    * *Solution:* Custom AI Agents to handle inventory and dispatch routing.
+    * *Result:* **85%** of daily tasks are now fully automated.
+
+3.  **The Support Overhaul**
+    * *Challenge:* A SaaS company was overwhelmed by 500+ support tickets/day.
+    * *Solution:* Custom Knowledge System (RAG) + Chatbot integration.
+    * *Result:* **70%** reduction in human support tickets within 3 months.
+
+**COMPANY INFO:**
+- Contact: hello@adityaandaditya.com
+- Location: India
+- Values: Innovation First, Client-Centric, Speed & Quality.
+
+**TONE:**
+Professional, inquisitive, and solution-oriented. Keep responses concise.
+`,C=`
+
+---
+It looks like your requirements are getting specific.  
+The best next step is to connect directly with our team so we can scope and architect the right solution.
+
+📩 hello@adityaandaditya.com  
+We typically respond within a few hours.
+`,E=`
+Thanks for the detailed discussion.  
+At this stage, the best step is to connect directly with our team so we can move this forward properly.
+
+📩 Contact: hello@adityaandaditya.com
+`;async function b(e){try{let{message:t,history:r}=await e.json();if(!t)return R.NextResponse.json({error:"Message is required"},{status:400});let n=r?.filter(e=>"user"===e.sender).length||0;if(n>=5)return R.NextResponse.json({message:E},{status:200});let a=w.getGenerativeModel({model:"gemini-2.5-flash",systemInstruction:A}),o=r?.map(e=>({role:"user"===e.sender?"user":"model",parts:[{text:e.text}]}))||[],s=a.startChat({history:o,generationConfig:{maxOutputTokens:500,temperature:.6}}),i=(await s.sendMessage(t)).response.text();if(4===n)return R.NextResponse.json({message:i+C},{status:200});return R.NextResponse.json({message:i},{status:200})}catch(e){return console.error("Gemini API error:",e),R.NextResponse.json({error:"Failed to process the request."},{status:500})}}e.s(["POST",()=>b],76021);var S=e.i(76021);let P=new t.AppRouteRouteModule({definition:{kind:r.RouteKind.APP_ROUTE,page:"/api/chat/route",pathname:"/api/chat",filename:"route",bundlePath:""},distDir:".next",relativeProjectDir:"",resolvedPagePath:"[project]/app/api/chat/route.ts",nextConfigOutput:"",userland:S}),{workAsyncStorage:T,workUnitAsyncStorage:O,serverHooks:k}=P;function I(){return(0,n.patchFetch)({workAsyncStorage:T,workUnitAsyncStorage:O})}async function N(e,t,n){P.isDev&&(0,a.addRequestMeta)(e,"devRequestTimingInternalsEnd",process.hrtime.bigint());let y="/api/chat/route";y=y.replace(/\/index$/,"")||"/";let R=await P.prepare(e,t,{srcPage:y,multiZoneDraftMode:!1});if(!R)return t.statusCode=400,t.end("Bad Request"),null==n.waitUntil||n.waitUntil.call(n,Promise.resolve()),null;let{buildId:w,params:A,nextConfig:C,parsedUrl:E,isDraftMode:b,prerenderManifest:S,routerServerContext:T,isOnDemandRevalidate:O,revalidateOnlyGenerated:k,resolvedPathname:I,clientReferenceManifest:N,serverActionsManifest:j}=R,q=(0,l.normalizeAppPath)(y),M=!!(S.dynamicRoutes[q]||S.routes[I]),_=async()=>((null==T?void 0:T.render404)?await T.render404(e,t,E,!1):t.end("This page could not be found"),null);if(M&&!b){let e=!!S.routes[I],t=S.dynamicRoutes[q];if(t&&!1===t.fallback&&!e){if(C.experimental.adapterPath)return await _();throw new v.NoFallbackError}}let D=null;!M||P.isDev||b||(D="/index"===(D=I)?"/":D);let U=!0===P.isDev||!M,H=M&&!U;j&&N&&(0,s.setReferenceManifestsSingleton)({page:y,clientReferenceManifest:N,serverActionsManifest:j,serverModuleMap:(0,i.createServerModuleMap)({serverActionsManifest:j})});let F=e.method||"GET",K=(0,o.getTracer)(),G=K.getActiveScopeSpan(),L={params:A,prerenderManifest:S,renderOpts:{experimental:{authInterrupts:!!C.experimental.authInterrupts},cacheComponents:!!C.cacheComponents,supportsDynamicResponse:U,incrementalCache:(0,a.getRequestMeta)(e,"incrementalCache"),cacheLifeProfiles:C.cacheLife,waitUntil:n.waitUntil,onClose:e=>{t.on("close",e)},onAfterTaskError:void 0,onInstrumentationRequestError:(t,r,n)=>P.onRequestError(e,t,n,T)},sharedContext:{buildId:w}},$=new u.NodeNextRequest(e),B=new u.NodeNextResponse(t),W=d.NextRequestAdapter.fromNodeNextRequest($,(0,d.signalFromNodeResponse)(t));try{let s=async e=>P.handle(W,L).finally(()=>{if(!e)return;e.setAttributes({"http.status_code":t.statusCode,"next.rsc":!1});let r=K.getRootSpanAttributes();if(!r)return;if(r.get("next.span_type")!==c.BaseServerSpan.handleRequest)return void console.warn(`Unexpected root span type '${r.get("next.span_type")}'. Please report this Next.js issue https://github.com/vercel/next.js`);let n=r.get("next.route");if(n){let t=`${F} ${n}`;e.setAttributes({"next.route":n,"http.route":n,"next.span_name":t}),e.updateName(t)}else e.updateName(`${F} ${y}`)}),i=!!(0,a.getRequestMeta)(e,"minimalMode"),l=async a=>{var o,l;let u=async({previousCacheEntry:r})=>{try{if(!i&&O&&k&&!r)return t.statusCode=404,t.setHeader("x-nextjs-cache","REVALIDATED"),t.end("This page could not be found"),null;let o=await s(a);e.fetchMetrics=L.renderOpts.fetchMetrics;let l=L.renderOpts.pendingWaitUntil;l&&n.waitUntil&&(n.waitUntil(l),l=void 0);let u=L.renderOpts.collectedTags;if(!M)return await (0,h.sendResponse)($,B,o,L.renderOpts.pendingWaitUntil),null;{let e=await o.blob(),t=(0,m.toNodeOutgoingHttpHeaders)(o.headers);u&&(t[f.NEXT_CACHE_TAGS_HEADER]=u),!t["content-type"]&&e.type&&(t["content-type"]=e.type);let r=void 0!==L.renderOpts.collectedRevalidate&&!(L.renderOpts.collectedRevalidate>=f.INFINITE_CACHE)&&L.renderOpts.collectedRevalidate,n=void 0===L.renderOpts.collectedExpire||L.renderOpts.collectedExpire>=f.INFINITE_CACHE?void 0:L.renderOpts.collectedExpire;return{value:{kind:x.CachedRouteKind.APP_ROUTE,status:o.status,body:Buffer.from(await e.arrayBuffer()),headers:t},cacheControl:{revalidate:r,expire:n}}}}catch(t){throw(null==r?void 0:r.isStale)&&await P.onRequestError(e,t,{routerKind:"App Router",routePath:y,routeType:"route",revalidateReason:(0,p.getRevalidateReason)({isStaticGeneration:H,isOnDemandRevalidate:O})},T),t}},d=await P.handleResponse({req:e,nextConfig:C,cacheKey:D,routeKind:r.RouteKind.APP_ROUTE,isFallback:!1,prerenderManifest:S,isRoutePPREnabled:!1,isOnDemandRevalidate:O,revalidateOnlyGenerated:k,responseGenerator:u,waitUntil:n.waitUntil,isMinimalMode:i});if(!M)return null;if((null==d||null==(o=d.value)?void 0:o.kind)!==x.CachedRouteKind.APP_ROUTE)throw Object.defineProperty(Error(`Invariant: app-route received invalid cache entry ${null==d||null==(l=d.value)?void 0:l.kind}`),"__NEXT_ERROR_CODE",{value:"E701",enumerable:!1,configurable:!0});i||t.setHeader("x-nextjs-cache",O?"REVALIDATED":d.isMiss?"MISS":d.isStale?"STALE":"HIT"),b&&t.setHeader("Cache-Control","private, no-cache, no-store, max-age=0, must-revalidate");let c=(0,m.fromNodeOutgoingHttpHeaders)(d.value.headers);return i&&M||c.delete(f.NEXT_CACHE_TAGS_HEADER),!d.cacheControl||t.getHeader("Cache-Control")||c.get("Cache-Control")||c.set("Cache-Control",(0,g.getCacheControlHeader)(d.cacheControl)),await (0,h.sendResponse)($,B,new Response(d.value.body,{headers:c,status:d.value.status||200})),null};G?await l(G):await K.withPropagatedContext(e.headers,()=>K.trace(c.BaseServerSpan.handleRequest,{spanName:`${F} ${y}`,kind:o.SpanKind.SERVER,attributes:{"http.method":F,"http.target":e.url}},l))}catch(t){if(t instanceof v.NoFallbackError||await P.onRequestError(e,t,{routerKind:"App Router",routePath:q,routeType:"route",revalidateReason:(0,p.getRevalidateReason)({isStaticGeneration:H,isOnDemandRevalidate:O})}),M)throw t;return await (0,h.sendResponse)($,B,new Response(null,{status:500})),null}}e.s(["handler",()=>N,"patchFetch",()=>I,"routeModule",()=>P,"serverHooks",()=>k,"workAsyncStorage",()=>T,"workUnitAsyncStorage",()=>O],61378)}];
+
+//# sourceMappingURL=%5Broot-of-the-server%5D__ecc5be85._.js.map
