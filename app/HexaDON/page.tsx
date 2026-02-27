@@ -245,9 +245,9 @@ const response = await fetch('/api/client', {
                         You've seen the data. Building autonomous workflows requires custom architecture, clean data pipelines, and a deep understanding of your business logic. 
                     </p>
                     <p className="text-lg text-[#37a8b1] mb-10">Chat with our preview agent to see how it works, or skip the line and book a call with our human experts.</p>
-                    <Button className="bg-[#37a8b1] hover:bg-[#2d8a91] text-white px-8 py-6 rounded-full text-lg w-full sm:w-auto shadow-lg shadow-[#37a8b1]/20 transition-all hover:scale-105">
+                    <Link href="/#contact" className="bg-[#37a8b1] hover:bg-[#2d8a91] text-white px-8 py-3 rounded-full text-lg w-full sm:w-auto shadow-lg shadow-[#37a8b1]/20 transition-all hover:scale-105">
                         Book a Strategy Call
-                    </Button>
+                    </Link>
                 </div>
                 <div className="flex justify-center lg:justify-end">
                     <div className="bg-white text-[#092d60] rounded-3xl shadow-2xl overflow-hidden flex flex-col h-[500px] w-full max-w-[450px] border border-gray-200">

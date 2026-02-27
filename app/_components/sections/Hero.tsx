@@ -11,7 +11,8 @@ import {
   Brain, 
   Cloud, 
   Smartphone, 
-  ChevronRight 
+  ChevronRight,
+  TrendingUp 
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useMemo } from 'react';
@@ -167,48 +168,88 @@ export default function Hero() {
 
           {/* RIGHT SIDE – CARD */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="order-last"
+      initial={{ opacity: 0, x: 50 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.6, delay: 0.3 }}
+      className="order-last"
+    >
+      <div className="max-w-md mx-auto w-full">
+        <Card 
+          className="p-6 md:p-8 bg-white shadow-2xl transition-colors flex flex-col gap-6" 
+          style={{ borderColor: 'rgba(55, 168, 177, 0.2)', borderWidth: '2px' }}
+        >
+          {/* Header & Text Content */}
+          <div>
+            <p 
+              className="text-sm font-bold tracking-widest uppercase mb-2" 
+              style={{ color: '#37a8b1' }}
+            >
+              Featured Zero Study
+            </p>
+            <h3 
+              className="text-2xl md:text-3xl font-bold mb-3 leading-tight" 
+              style={{ color: '#092d60' }}
+            >
+              Achieving Exponential Growth
+            </h3>
+            <p className="text-gray-600 text-sm md:text-base leading-relaxed">
+              Discover how a strategic shift in technology and process led to a massive increase in key metrics for our client, setting a new industry benchmark.
+            </p>
+          </div>
+
+          {/* Scaled-down Animated Graph */}
+          <div 
+            className="relative w-full h-48 rounded-xl flex items-end justify-center gap-2 md:gap-3 p-4 overflow-hidden shadow-inner"
+            style={{ backgroundColor: '#092d60' }}
           >
-            <div className="max-w-md mx-auto w-full">
-              <Card className="p-6 md:p-8 bg-white shadow-2xl transition-colors" style={{ borderColor: 'rgba(55, 168, 177, 0.2)', borderWidth: '2px' }}>
-                <h3 className="text-2xl md:text-3xl font-bold mb-6" style={{ color: '#092d60' }}>
-                  What We Offer
-                </h3>
+            {/* Animated Bars */}
+            {[30, 50, 40, 75, 95].map((height, i) => (
+              <motion.div
+                key={i}
+                initial={{ height: '0%' }}
+                whileInView={{ height: `${height}%` }}
+                transition={{ duration: 1, delay: i * 0.2, ease: "backOut" }}
+                viewport={{ once: true }}
+                className="w-6 md:w-8 rounded-t-sm relative group"
+                style={{ backgroundColor: '#37a8b1' }} 
+              >
+                 {/* Hover Glow Effect */}
+                 <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity rounded-t-sm" />
+              </motion.div>
+            ))}
+            
+            {/* Floating ROI Badge */}
+            <motion.div 
+              initial={{ scale: 0, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 1.2, type: "spring" }}
+              className="absolute top-4 right-4 bg-white px-3 py-1.5 rounded-full font-bold shadow-lg flex items-center gap-1.5 text-xs md:text-sm"
+              style={{ color: '#092d60' }}
+            >
+              <TrendingUp size={14} />
+              <span>300% ROI</span>
+            </motion.div>
+          </div>
 
-                <ul className="space-y-3 mb-6" role="list" aria-label="Featured services">
-                  {featuredServices.map((service) => (
-                    <ServiceItem key={service.title} icon={service.icon} title={service.title} />
-                  ))}
-                </ul>
-
-                <Button
-                  asChild
-                  variant="ghost"
-                  className="w-full border transition-all py-3"
-                  style={{ color: '#37a8b1', borderColor: 'rgba(55, 168, 177, 0.3)' }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = 'rgba(55, 168, 177, 0.1)';
-                    e.currentTarget.style.borderColor = 'rgba(55, 168, 177, 0.5)';
-                    e.currentTarget.style.color = '#2a8490';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = 'transparent';
-                    e.currentTarget.style.borderColor = 'rgba(55, 168, 177, 0.3)';
-                    e.currentTarget.style.color = '#37a8b1';
-                  }}
-                  aria-label="Explore all services"
-                >
-                  <Link href="#services" className="flex items-center justify-center gap-2">
-                    View All Services
-                    <ArrowRight size={18} aria-hidden="true" />
-                  </Link>
-                </Button>
-              </Card>
-            </div>
-          </motion.div>
+          {/* Call to Action Button */}
+          <Button
+            asChild
+            className="w-full transition-all py-6 font-semibold group hover:opacity-90 mt-2"
+            style={{ 
+              backgroundColor: '#092d60', 
+              color: 'white',
+              boxShadow: '0 4px 14px 0 rgba(9, 45, 96, 0.2)'
+            }}
+          >
+            <Link href="/zero-study" className="flex items-center justify-center gap-2">
+              Read the Story
+              <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+          </Button>
+          
+        </Card>
+      </div>
+    </motion.div>
 
         </div>
       </div>

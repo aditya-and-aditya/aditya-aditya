@@ -1,9 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Rocket, HeartHandshake, Code2, CheckCircle, Quote } from 'lucide-react';
+import { Rocket, HeartHandshake, Code2, CheckCircle, Quote, ArrowRight, Sparkles } from 'lucide-react';
 import { useMemo } from 'react';
 import Image from 'next/image'; 
+import Link from 'next/link';
 
 function ValueCard({
   icon: Icon,
@@ -211,37 +212,115 @@ export default function About() {
           </div>
         </motion.div>
 
-        {/* Expertise */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center max-w-4xl mx-auto"
+        {/* Services CTA — replaces Expertise */}
+        
+<motion.div
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+  viewport={{ once: true }}
+  className="relative max-w-3xl mx-auto"
+>
+  {/* Outer glow border */}
+  <div
+    className="absolute -inset-px rounded-2xl pointer-events-none"
+    style={{
+      background: 'linear-gradient(135deg, rgba(55,168,177,0.5) 0%, rgba(9,45,96,0.15) 50%, rgba(55,168,177,0.3) 100%)',
+      filter: 'blur(0.5px)',
+    }}
+  />
+
+  {/* Card */}
+  <div
+    className="relative rounded-2xl overflow-hidden px-8 py-8 md:px-12 md:py-10 flex flex-col md:flex-row items-center justify-between gap-6"
+    style={{
+      background: 'linear-gradient(135deg, #06193a 0%, #092d60 60%, #0a2448 100%)',
+    }}
+  >
+    {/* Noise texture */}
+    <div
+      className="absolute inset-0 opacity-[0.03] pointer-events-none"
+      style={{
+        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+        backgroundSize: '128px 128px',
+      }}
+    />
+
+    {/* Spotlight */}
+    <div
+      className="absolute -top-20 -right-20 w-72 h-72 rounded-full pointer-events-none"
+      style={{ background: 'radial-gradient(circle, rgba(55,168,177,0.1) 0%, transparent 70%)' }}
+    />
+
+    {/* Top shimmer line */}
+    <div
+      className="absolute top-0 left-0 right-0 h-px pointer-events-none"
+      style={{
+        background: 'linear-gradient(90deg, transparent, rgba(55,168,177,0.7) 40%, rgba(255,255,255,0.2) 50%, rgba(55,168,177,0.7) 60%, transparent)',
+      }}
+    />
+
+    {/* Left: text */}
+    <div className="relative z-10 text-center md:text-left">
+      <p
+        className="text-[10px] font-bold tracking-[0.2em] uppercase mb-2"
+        style={{ color: '#37a8b1' }}
+      >
+        What We Offer
+      </p>
+      <h3
+        className="text-xl md:text-2xl font-bold leading-snug"
+        style={{ color: 'white', letterSpacing: '-0.03em' }}
+      >
+        Ready to see what we can{' '}
+        <span
+          style={{
+            background: 'linear-gradient(90deg, #37a8b1, #7adde4)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+          }}
         >
-          <h3
-            className="text-2xl font-bold mb-8"
-            style={{ color: '#092d60' }}
+          build for you?
+        </span>
+      </h3>
+    </div>
+
+    {/* Right: CTA button */}
+    <div className="relative z-10 shrink-0">
+      <Link href="/services">
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.96 }}
+          className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full font-bold text-sm overflow-hidden whitespace-nowrap"
+        >
+          <div
+            className="absolute inset-0 rounded-full"
+            style={{
+              background: 'linear-gradient(135deg, #37a8b1, #2a8f98)',
+              boxShadow: '0 0 28px rgba(55,168,177,0.45), 0 4px 12px rgba(55,168,177,0.25)',
+            }}
+          />
+          {/* Shimmer sweep */}
+          <div
+            className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            style={{
+              background: 'linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.18) 50%, transparent 70%)',
+            }}
+          />
+          <span className="relative z-10 text-white">Explore Our Services</span>
+          <motion.div
+            className="relative z-10"
+            animate={{ x: [0, 3, 0] }}
+            transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
           >
-            Technologies We Mastered For You
-          </h3>
-          <div className="flex flex-wrap justify-center gap-4">
-            {expertise.map((skill) => (
-              <div
-                key={skill}
-                className="px-6 py-3 rounded-full flex items-center gap-2 border transition-all hover:scale-105"
-                style={{
-                  backgroundColor: 'white',
-                  borderColor: 'rgba(55, 168, 177, 0.3)',
-                  color: '#092d60',
-                }}
-              >
-                <CheckCircle size={16} style={{ color: '#37a8b1' }} />
-                <span className="font-semibold text-sm">{skill}</span>
-              </div>
-            ))}
-          </div>
-        </motion.div>
+            <ArrowRight size={15} color="white" />
+          </motion.div>
+        </motion.button>
+      </Link>
+    </div>
+  </div>
+</motion.div>
       </div>
     </section>
   );

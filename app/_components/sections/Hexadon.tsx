@@ -215,9 +215,9 @@ export default function ClientingTeaser() {
   };
 
   return (
-    <section className="relative py-12 overflow-hidden bg-white">
+    <section className="relative py-12 overflow-hidden" style={{ backgroundColor: '#eff0ef' }}>
       {/* Background Decor */}
-      <div className="absolute top-0 inset-x-0 h-1/2 opacity-22 bg-linear-to-br from-[#092d60] to-[#37a8b1]" />
+      <div className="absolute top-0 inset-x-0 h-1/2 opacity-19 bg-linear-to-tr from-[#092d60] to-[#37a8b1]"  />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div 

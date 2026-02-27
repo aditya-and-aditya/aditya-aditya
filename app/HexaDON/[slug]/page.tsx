@@ -150,9 +150,9 @@ const response = await fetch('/api/client', {
                         Reading the research is one thing; deploying the autonomous agents to execute it is another. We can integrate this specific workflow into your existing platform. 
                     </p>
                     <p className="text-lg text-[#37a8b1] mb-10">Chat with our agent about this pillar, or book a call with our team.</p>
-                    <Button className="bg-[#37a8b1] hover:bg-[#2d8a91] text-white px-8 py-6 rounded-full text-lg w-full sm:w-auto shadow-lg shadow-[#37a8b1]/20 transition-all hover:scale-105">
+                    <Link href="/#contact" className="bg-[#37a8b1] hover:bg-[#2d8a91] text-white px-8 py-3 rounded-full text-lg w-full sm:w-auto shadow-lg shadow-[#37a8b1]/20 transition-all hover:scale-105">
                         Book a Strategy Call
-                    </Button>
+                    </Link>
                 </div>
                 <div className="flex justify-center lg:justify-end">
                     <div className="bg-white text-[#092d60] rounded-3xl shadow-2xl overflow-hidden flex flex-col h-[500px] w-full max-w-[450px] border border-gray-200">

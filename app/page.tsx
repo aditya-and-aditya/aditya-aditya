@@ -1,10 +1,8 @@
 import Hero from './_components/sections/Hero';
-import Services from './_components/sections/Service';
 import CaseStudies from './_components/sections/CaseStudies';
 import About from './_components/sections/About';
 import Contact from './_components/sections/Contact';
 import Chatbot from './_components/sections/Chatbot';
-import FeaturedProjectSection from './_components/sections/ZeroStudy';
 import ClientingTeaser from './_components/sections/Hexadon';
 
 export default function Home() {
@@ -12,8 +10,6 @@ export default function Home() {
     <>
       <Hero />
       <ClientingTeaser />
-      <Services />      
-      <FeaturedProjectSection />
       <CaseStudies />
       <About />
       <Chatbot />
