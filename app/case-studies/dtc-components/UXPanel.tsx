@@ -6,9 +6,28 @@ import { motion, AnimatePresence } from 'framer-motion';
 export default function UXPanel() {
   const [activeStage, setActiveStage] = useState(0);
   const [isGift, setIsGift] = useState(false);
+  const [giftNote, setGiftNote] = useState('');
   const scrollRef = useRef<HTMLDivElement>(null);
   const [showNextFrequency, setShowNextFrequency] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+
+  const nextStage = () => {
+    if (activeStage < stages.length - 1) {
+      scrollRef.current?.scrollTo({
+        top: (activeStage + 1) * scrollRef.current.clientHeight,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  const prevStage = () => {
+    if (activeStage > 0) {
+      scrollRef.current?.scrollTo({
+        top: (activeStage - 1) * scrollRef.current.clientHeight,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   // Implement internal scroll lock logic
   useEffect(() => {
@@ -66,8 +85,11 @@ export default function UXPanel() {
           </div>
           <div className="font-mono text-[0.6rem] uppercase tracking-widest text-[var(--sillage-gold)] mb-8">23% concentration. 47 iterations. One batch.</div>
           <div className="flex justify-between items-center">
-            <span className="font-serif text-xl">£165</span>
-            <button className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-[var(--sillage-gold)] border-b border-[var(--sillage-gold)] pb-1">
+            <span className="font-serif text-xl text-[#1c1713]">£165</span>
+            <button
+              onClick={nextStage}
+              className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-[var(--sillage-gold)] border-b border-[var(--sillage-gold)] pb-1 hover:text-[var(--sillage-ink)] hover:border-[var(--sillage-ink)] transition-colors"
+            >
               [ Begin Your Bottle ]
             </button>
           </div>
@@ -97,12 +119,36 @@ export default function UXPanel() {
           </div>
           <AnimatePresence>
             {isGift && (
-              <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="mt-6">
-                <input type="text" placeholder="A note to include (optional)" className="w-full bg-transparent border-b border-[var(--sillage-bone)] py-2 font-serif italic text-sm focus:outline-none focus:border-[var(--sillage-gold)] transition-colors mb-4" />
-                <button className="font-mono text-[0.6rem] uppercase tracking-widest text-[var(--sillage-gold)]">[ Continue ]</button>
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                className="mt-6 space-y-4"
+              >
+                <input
+                  type="text"
+                  placeholder="A note to include (optional)"
+                  value={giftNote}
+                  onChange={(e) => setGiftNote(e.target.value)}
+                  className="w-full bg-transparent border-b border-[var(--sillage-bone)] py-2 font-serif italic text-sm focus:outline-none focus:border-[var(--sillage-gold)] transition-colors text-[#1c1713]"
+                />
+                <button
+                  onClick={nextStage}
+                  className="font-mono text-[0.6rem] uppercase tracking-widest text-[var(--sillage-gold)] hover:text-[var(--sillage-ink)] transition-colors"
+                >
+                  [ Continue ]
+                </button>
               </motion.div>
             )}
           </AnimatePresence>
+          {!isGift && (
+            <button
+              onClick={nextStage}
+              className="mt-8 font-mono text-[0.6rem] uppercase tracking-widest text-[var(--sillage-gold)] hover:text-[var(--sillage-ink)] transition-colors"
+            >
+              [ Next ]
+            </button>
+          )}
         </div>
       )
     },
@@ -130,7 +176,10 @@ export default function UXPanel() {
               </p>
             </div>
           </div>
-          <button className="w-full py-4 bg-[var(--sillage-ink)] text-[var(--sillage-white)] font-mono text-[0.7rem] uppercase tracking-[0.2em] hover:bg-[var(--sillage-gold)] transition-colors">
+          <button
+            onClick={nextStage}
+            className="w-full py-4 bg-[var(--sillage-ink)] text-[var(--sillage-white)] font-mono text-[0.7rem] uppercase tracking-[0.2em] hover:bg-[var(--sillage-gold)] transition-colors"
+          >
             Complete Your Order
           </button>
         </div>
@@ -155,8 +204,13 @@ export default function UXPanel() {
            <div className="h-10 flex items-center justify-center">
              <AnimatePresence>
               {showNextFrequency && (
-                <motion.button initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="w-full text-center font-mono text-[0.6rem] uppercase tracking-[0.2em] text-[var(--sillage-gold)] hover:text-[var(--sillage-ink)] transition-colors">
-                  [ Your next frequency → ]
+                <motion.button
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  onClick={nextStage}
+                  className="w-full text-center font-mono text-[0.6rem] uppercase tracking-[0.2em] text-[var(--sillage-gold)] hover:text-[var(--sillage-ink)] transition-colors"
+                >
+                  [ View Insights → ]
                 </motion.button>
               )}
              </AnimatePresence>
@@ -168,23 +222,51 @@ export default function UXPanel() {
       id: "ghost",
       title: "The Ghost",
       content: (
-        <div className="w-full max-w-sm p-8 bg-[var(--sillage-black)] text-[var(--sillage-gold)] font-mono text-[0.6rem] leading-relaxed border-l-2 border-[var(--sillage-gold)]/40">
-          <div className="opacity-40 mb-6 uppercase tracking-widest flex justify-between">
-            <span>INSIGHTS_LOG_V2</span>
-            <span>● SECURE</span>
+        <div className="w-full max-w-sm p-8 bg-[var(--sillage-black)] text-[var(--sillage-gold)] font-mono text-[0.6rem] leading-relaxed border border-[var(--sillage-gold)]/20 shadow-[0_0_50px_rgba(181,137,58,0.1)] relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[var(--sillage-gold)] to-transparent opacity-20" />
+          <div className="opacity-40 mb-6 uppercase tracking-widest flex justify-between items-center">
+            <span className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[var(--sillage-gold)] animate-pulse" />
+              INSIGHTS_LOG_V2
+            </span>
+            <span>SECURE_ENCRYPTED</span>
           </div>
-          <div className="space-y-4 opacity-80">
-            <p>· TIME: 22:14 GMT (LATE_EVENING_PURCHASE)</p>
-            <p>· SOURCE: DIRECT_NAV (RETURNING_VISITOR)</p>
-            <p>· PERSONA: FIRST_TIME_BUYER (QUIZ_DRIVEN)</p>
-            <p>· NOTES: COOL_WET_DARK (AFFINITY_MATCH)</p>
-            <p>· SEQUENCE: FIRST_PURCHASE</p>
-            <p>· LTV_PROJ: £512 (COHORT_V3)</p>
+          <div className="space-y-4 opacity-80 font-mono">
+            <div className="flex justify-between border-b border-[var(--sillage-white)]/5 pb-2">
+              <span className="opacity-50">TIME</span>
+              <span>22:14 GMT</span>
+            </div>
+            <div className="flex justify-between border-b border-[var(--sillage-white)]/5 pb-2">
+              <span className="opacity-50">ACQUISITION</span>
+              <span>DIRECT_NAV</span>
+            </div>
+            <div className="flex justify-between border-b border-[var(--sillage-white)]/5 pb-2">
+              <span className="opacity-50">PERSONA</span>
+              <span className="text-[var(--sillage-white)]">COLLECTOR_ARCHETYPE</span>
+            </div>
+            <div className="flex justify-between border-b border-[var(--sillage-white)]/5 pb-2">
+              <span className="opacity-50">INTENT</span>
+              <span>{isGift ? "ALTRUISTIC_GIFT" : "SELF_INDULGENCE"}</span>
+            </div>
+            <div className="flex justify-between border-b border-[var(--sillage-white)]/5 pb-2">
+              <span className="opacity-50">LTV_PROJ</span>
+              <span className="text-[var(--sillage-gold-lt)]">£840.00</span>
+            </div>
           </div>
-          <div className="mt-8 pt-6 border-t border-[var(--sillage-white)]/10 italic opacity-40">
-            &lt;!-- Automated email trigger: 14 days --&gt; <br/>
-            &lt;!-- Soft intro to No. 2 (Threshold) --&gt;
+          <div className="mt-8 pt-6 border-t border-[var(--sillage-white)]/10 text-[0.55rem] uppercase tracking-wider space-y-2">
+            <p className="text-[var(--sillage-gold-lt)] opacity-60">Next Engagement Protocol:</p>
+            <p className="italic opacity-40">T+14 days: Hand-written digital note regarding maturation.</p>
+            <p className="italic opacity-40">T+30 days: Early access to No. 4 (Ozonics).</p>
           </div>
+
+          <button
+            onClick={() => {
+              scrollRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className="mt-8 w-full py-3 border border-[var(--sillage-gold)]/30 text-[var(--sillage-gold)] hover:bg-[var(--sillage-gold)] hover:text-[var(--sillage-black)] transition-all duration-500 uppercase tracking-[0.2em] text-[0.55rem]"
+          >
+            [ Reset Experience ]
+          </button>
         </div>
       )
     }
