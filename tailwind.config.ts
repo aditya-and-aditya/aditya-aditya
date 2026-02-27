@@ -26,6 +26,7 @@ const config: Config = {
         playfair: ["var(--font-playfair)", "serif"],
         dm: ["var(--font-dm-mono)", "monospace"],
         cormorant: ["var(--font-cormorant)", "serif"],
+        display: ["var(--font-libre-baskerville)", "serif"],
       },
     },
   },
