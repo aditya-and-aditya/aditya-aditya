@@ -47,31 +47,58 @@ const sceneLines = [
 
 const constellationNotes = [
   {
+    name: "Bergamot",
+    type: "top",
+    duration: "0 – 15 min",
+    x: 15, y: 25,
+    color: "#eab308", // Bright citrus yellow
+    poetic: "Morning light.",
+    content: "Hand-pressed bergamot from Calabria. It provides the initial flash of sunlight that cuts through the humidity."
+  },
+  {
     name: "Petrichor",
-    type: "the opening",
+    type: "opening",
     duration: "0 – 8 min",
-    x: 15, y: 50,
+    x: 30, y: 55,
     color: "#a8c0ff", // Cold blue
     poetic: "The memory of stone.",
-    content: "The first eight minutes. A synthetic accord — the only one we use. Built to replicate limestone in summer rain. Gone before you realise it was there. That is the point."
+    content: "A synthetic construction built to replicate the specific olfactory signature of limestone after the first drops of rain."
   },
   {
     name: "Iris Root",
-    type: "the body",
+    type: "heart",
     duration: "1 – 5 hrs",
-    x: 50, y: 30,
+    x: 50, y: 35,
     color: "#d8b4fe", // Powdered purple
     poetic: "Powdered bone.",
-    content: "The heart of the experience. Cold-macerated Florentine orris. It provides a structural, vertical quality that anchors the volatile petrichor."
+    content: "Cold-macerated Florentine orris. Structural, vertical, and unapologetically cold."
+  },
+  {
+    name: "Pink Pepper",
+    type: "top",
+    duration: "5 – 20 min",
+    x: 65, y: 20,
+    color: "#fb7185", // Soft rose/pink
+    poetic: "Electric friction.",
+    content: "A sharp, ozonic spice that mimics the static charge in the air before a storm."
   },
   {
     name: "Vetiver Bourbon",
-    type: "the ghost",
+    type: "base",
     duration: "6 hrs → forever",
-    x: 85, y: 60,
+    x: 80, y: 65,
     color: "#84cc16", // Earthy green
     poetic: "Volcanic earth.",
-    content: "Dark without being heavy. Réunion vetiver character: dark without being heavy, earthy without being dirty."
+    content: "Hand-harvested Réunion vetiver. Dark without being heavy, earthy without being dirty."
+  },
+  {
+    name: "Sandalwood",
+    type: "base",
+    duration: "8 hrs → forever",
+    x: 45, y: 80,
+    color: "#b45309", // Warm amber/brown
+    poetic: "The library.",
+    content: "Mysore sandalwood absolute. Creamy, lactonic, and deeply anchored in the skin."
   }
 ];
 
@@ -80,6 +107,7 @@ export default function AuthorityPanel() {
   const [expandedStage, setExpandedStage] = useState<string | null>(null);
   const [sceneIndex, setSceneIndex] = useState(0);
   const [hoveredNote, setHoveredNote] = useState<number | null>(null);
+  const [selectedNotes, setSelectedNotes] = useState<number[]>([]);
 
   useEffect(() => {
     if (layer === 'art') {
@@ -90,11 +118,27 @@ export default function AuthorityPanel() {
     }
   }, [layer]);
 
+  const toggleNote = (index: number) => {
+    setSelectedNotes(prev =>
+      prev.includes(index)
+        ? prev.filter(i => i !== index)
+        : [...prev, index].slice(-3) // Keep only last 3 for performance/visual clarity
+    );
+  };
+
   const getBackground = () => {
     if (layer === 'craft') return '#f2ece0';
     if (layer === 'entry') return '#0a0907';
 
     // Art layer background with atmospheric mixing
+    if (selectedNotes.length > 0) {
+      const gradients = selectedNotes.map((idx, i) => {
+        const note = constellationNotes[idx];
+        return `radial-gradient(circle at ${note.x}% ${note.y}%, ${note.color}33 0%, transparent 50%)`;
+      });
+      return `${gradients.join(', ')}, #0a0907`;
+    }
+
     if (hoveredNote !== null) {
       const note = constellationNotes[hoveredNote];
       return `radial-gradient(circle at ${note.x}% ${note.y}%, ${note.color}22 0%, #0a0907 70%)`;
@@ -121,7 +165,7 @@ export default function AuthorityPanel() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 1.2 }}
-              className="font-display text-[clamp(4rem,14vw,12rem)] font-extralight text-[#faf7f2] tracking-[0.4em] leading-none mb-4"
+              className="font-display text-[clamp(3rem,10vw,8rem)] font-extralight text-[#faf7f2] tracking-[0.4em] leading-none mb-4 text-center"
             >
               No. 3
             </motion.h2>
@@ -129,7 +173,7 @@ export default function AuthorityPanel() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.2, duration: 1 }}
-              className="font-serif italic text-2xl md:text-3xl text-[#b5893a] mb-8"
+              className="font-serif italic text-xl md:text-2xl text-[#b5893a] mb-6"
             >
               "Before Rain"
             </motion.h3>
@@ -137,7 +181,7 @@ export default function AuthorityPanel() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.5 }}
               transition={{ delay: 2, duration: 1 }}
-              className="font-serif text-lg text-[#faf7f2] mb-16 max-w-sm"
+              className="font-serif text-base text-[#faf7f2] mb-12 max-w-sm"
             >
               The scent of a sky about to open.
             </motion.p>
@@ -145,7 +189,7 @@ export default function AuthorityPanel() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 2.6 }}
-              className="flex gap-16"
+              className="flex gap-12"
             >
               <button
                 onClick={() => setLayer('craft')}
@@ -171,18 +215,18 @@ export default function AuthorityPanel() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1.0] }}
-            className="flex-1 flex flex-col p-8 md:p-16 overflow-y-auto no-scrollbar"
+            className="flex-1 flex flex-col p-6 md:p-10 overflow-y-auto no-scrollbar"
           >
-            <div className="space-y-2 mb-16">
+            <div className="space-y-2 mb-12">
               {productionStages.map((stage) => (
                 <div key={stage.id} className="border-t border-[#1c1713]/10">
                   <button
                     onClick={() => setExpandedStage(expandedStage === stage.id ? null : stage.id)}
-                    className="w-full text-left py-8 group"
+                    className="w-full text-left py-6 group"
                   >
-                    <div className="font-mono text-[0.6rem] text-[#b5893a] mb-3 uppercase tracking-widest">{stage.id} ──</div>
-                    <div className="font-serif text-xl text-[#1c1713] mb-1 uppercase tracking-tight group-hover:pl-2 transition-all duration-500">{stage.title}</div>
-                    <div className="font-mono text-[0.65rem] text-[#c8c0b4] uppercase tracking-tight">{stage.subtitle}</div>
+                    <div className="font-mono text-[0.55rem] text-[#b5893a] mb-2 uppercase tracking-widest">{stage.id} ──</div>
+                    <div className="font-serif text-lg text-[#1c1713] mb-1 uppercase tracking-tight group-hover:pl-2 transition-all duration-500">{stage.title}</div>
+                    <div className="font-mono text-[0.6rem] text-[#c8c0b4] uppercase tracking-tight">{stage.subtitle}</div>
 
                     <AnimatePresence>
                       {expandedStage === stage.id && (
@@ -193,7 +237,7 @@ export default function AuthorityPanel() {
                           transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1.0] }}
                           className="overflow-hidden"
                         >
-                          <p className="pt-8 font-serif italic text-base leading-relaxed text-[#1c1713]/70 max-w-md">
+                          <p className="pt-6 font-serif italic text-sm leading-relaxed text-[#1c1713]/70 max-w-md">
                             {stage.content}
                           </p>
                         </motion.div>
@@ -202,16 +246,16 @@ export default function AuthorityPanel() {
                   </button>
                 </div>
               ))}
-              <div className="border-t border-[#1c1713]/10 py-8">
-                <div className="font-mono text-[0.6rem] text-[#b5893a] mb-3">↓</div>
-                <div className="font-serif text-xl uppercase tracking-tight">Bottled.</div>
+              <div className="border-t border-[#1c1713]/10 py-6">
+                <div className="font-mono text-[0.55rem] text-[#b5893a] mb-2">↓</div>
+                <div className="font-serif text-lg uppercase tracking-tight">Bottled.</div>
               </div>
             </div>
 
-            <div className="mt-auto pt-16 text-center border-t border-[#1c1713]/10">
-              <div className="font-mono text-2xl text-[#b5893a] mb-3">23% concentration.</div>
-              <div className="font-serif italic text-xl opacity-50 mb-16">Built for skin. Not for first impression.</div>
-              <div className="flex justify-center gap-16 font-mono text-[0.65rem] uppercase tracking-[0.3em] text-[#c8c0b4]">
+            <div className="mt-auto pt-12 text-center border-t border-[#1c1713]/10">
+              <div className="font-mono text-xl text-[#b5893a] mb-2">23% concentration.</div>
+              <div className="font-serif italic text-lg opacity-50 mb-12">Built for skin. Not for first impression.</div>
+              <div className="flex justify-center gap-12 font-mono text-[0.6rem] uppercase tracking-[0.3em] text-[#c8c0b4]">
                 <button onClick={() => setLayer('entry')} className="hover:text-[#b5893a] transition-colors">← Entry</button>
                 <button onClick={() => setLayer('art')} className="hover:text-[#b5893a] transition-colors">Art →</button>
               </div>
@@ -227,7 +271,7 @@ export default function AuthorityPanel() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.02 }}
             transition={{ duration: 0.8 }}
-            className="flex-1 flex flex-col p-8 md:p-12 overflow-hidden"
+            className="flex-1 flex flex-col p-6 md:p-8 overflow-hidden"
           >
             {/* Evaporation Texture */}
             <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
@@ -241,51 +285,61 @@ export default function AuthorityPanel() {
 
             {/* Scent Constellation */}
             <div className="relative flex-1 flex flex-col justify-center items-center">
-              <svg viewBox="0 0 100 100" className="w-full h-full max-h-[350px] relative z-10 overflow-visible">
+              <div className="absolute top-0 left-0 right-0 text-center">
+                <p className="font-mono text-[0.5rem] uppercase tracking-[0.3em] text-[#b5893a]/60">Select up to 3 notes to compose</p>
+              </div>
+              <svg viewBox="0 0 100 100" className="w-full h-full max-h-[380px] relative z-10 overflow-visible">
+                {/* Curved connecting lines */}
                 <motion.path
-                  d="M 15 50 C 30 20, 70 20, 85 60"
+                  d="M 15 25 Q 50 10 80 65"
                   fill="none"
                   stroke="#faf7f2"
-                  strokeWidth="0.15"
-                  strokeOpacity="0.15"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 2.5, ease: "easeInOut" }}
+                  strokeWidth="0.1"
+                  strokeOpacity="0.05"
                 />
+                <motion.path
+                  d="M 30 55 Q 50 35 65 20"
+                  fill="none"
+                  stroke="#faf7f2"
+                  strokeWidth="0.1"
+                  strokeOpacity="0.05"
+                />
+                <motion.path
+                  d="M 50 35 Q 45 80 80 65"
+                  fill="none"
+                  stroke="#faf7f2"
+                  strokeWidth="0.1"
+                  strokeOpacity="0.05"
+                />
+
                 {constellationNotes.map((note, i) => (
-                  <g key={note.name}>
+                  <g key={note.name} onClick={() => toggleNote(i)} className="cursor-pointer">
                     <motion.circle
-                      cx={note.x} cy={note.y} r="1.2"
+                      cx={note.x} cy={note.y} r={selectedNotes.includes(i) ? 2 : 1.2}
                       fill={note.color}
                       initial={{ scale: 0, opacity: 0 }}
                       animate={{
-                        scale: hoveredNote === i ? 2 : 1,
+                        scale: hoveredNote === i ? 2.5 : (selectedNotes.includes(i) ? 2 : 1),
                         opacity: 1,
-                        boxShadow: hoveredNote === i ? `0 0 20px ${note.color}` : 'none'
+                        filter: selectedNotes.includes(i) ? `drop-shadow(0 0 8px ${note.color})` : 'none'
                       }}
-                      transition={{ delay: i * 0.6, duration: 0.4 }}
+                      transition={{ delay: i * 0.1, duration: 0.4 }}
                       onMouseEnter={() => setHoveredNote(i)}
                       onMouseLeave={() => setHoveredNote(null)}
-                      className="cursor-pointer"
                     />
                     <motion.text
                       x={note.x} y={note.y + 7}
                       textAnchor="middle"
-                      className="font-serif text-[3.5px] fill-[#faf7f2]"
-                      style={{ opacity: hoveredNote === i ? 1 : 0.6 }}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 0.6 }}
-                      transition={{ delay: i * 0.6 + 0.3 }}
+                      className="font-serif text-[3px] fill-[#faf7f2] uppercase tracking-wider"
+                      style={{ opacity: hoveredNote === i || selectedNotes.includes(i) ? 1 : 0.4 }}
                     >
                       {note.name}
                     </motion.text>
                     <motion.text
                       x={note.x} y={note.y + 10}
                       textAnchor="middle"
-                      className="font-mono text-[2.2px] fill-[#b5893a] uppercase tracking-[0.2em]"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: i * 0.6 + 0.4 }}
+                      className="font-mono text-[1.8px] fill-[#b5893a] uppercase tracking-[0.2em]"
+                      style={{ opacity: hoveredNote === i || selectedNotes.includes(i) ? 0.8 : 0 }}
                     >
                       {note.duration}
                     </motion.text>
@@ -293,25 +347,45 @@ export default function AuthorityPanel() {
                 ))}
               </svg>
 
-              {/* Hover Card */}
+              {/* Hover/Selection Card */}
               <AnimatePresence>
-                {hoveredNote !== null && (
+                {(hoveredNote !== null || selectedNotes.length > 0) && (
                   <motion.div
-                    initial={{ opacity: 0, scale: 0.9, y: 10 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.9, y: 10 }}
-                    className="absolute z-20 w-56 bg-[#f2ece0] border border-[#b5893a] p-6 shadow-2xl pointer-events-none"
-                    style={{
-                      left: `${constellationNotes[hoveredNote].x}%`,
-                      top: `${constellationNotes[hoveredNote].y + 18}%`,
-                      transform: 'translateX(-50%)',
-                      borderColor: constellationNotes[hoveredNote].color
-                    }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 20 }}
+                    className="absolute bottom-4 left-4 right-4 bg-[#f2ece0]/95 backdrop-blur-sm border border-[#b5893a]/30 p-4 shadow-2xl pointer-events-none z-30"
                   >
-                    <p className="font-mono text-[0.55rem] uppercase mb-3 tracking-[0.2em]" style={{ color: constellationNotes[hoveredNote].color }}>{constellationNotes[hoveredNote].poetic}</p>
-                    <p className="font-serif italic text-sm leading-relaxed text-[#1c1713]">
-                      {constellationNotes[hoveredNote].content}
-                    </p>
+                    <div className="flex gap-6 items-start">
+                      <div className="flex-1">
+                        {hoveredNote !== null ? (
+                          <>
+                            <p className="font-mono text-[0.5rem] uppercase mb-1 tracking-[0.2em]" style={{ color: constellationNotes[hoveredNote].color }}>{constellationNotes[hoveredNote].poetic}</p>
+                            <h4 className="font-serif text-lg uppercase mb-2">{constellationNotes[hoveredNote].name}</h4>
+                            <p className="font-serif italic text-xs leading-relaxed text-[#1c1713]/80">
+                              {constellationNotes[hoveredNote].content}
+                            </p>
+                          </>
+                        ) : (
+                          <div className="flex flex-col gap-2">
+                            <p className="font-mono text-[0.5rem] uppercase tracking-[0.2em] text-[#b5893a]">Your Composition</p>
+                            <div className="flex gap-4">
+                              {selectedNotes.map(idx => (
+                                <div key={idx} className="flex flex-col">
+                                  <span className="font-serif text-xs uppercase" style={{ color: constellationNotes[idx].color }}>{constellationNotes[idx].name}</span>
+                                  <span className="font-mono text-[0.4rem] opacity-50 uppercase">{constellationNotes[idx].type}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                      <div className="w-px h-16 bg-[#b5893a]/20" />
+                      <div className="flex flex-col justify-center">
+                        <p className="font-mono text-[0.5rem] uppercase tracking-[0.2em] text-[#b5893a] mb-1">Concentration</p>
+                        <p className="font-serif text-xl italic">23%</p>
+                      </div>
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
