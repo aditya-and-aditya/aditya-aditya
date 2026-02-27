@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const auditRows = [
@@ -20,36 +20,58 @@ const auditRows = [
 
 export default function BrandingPanel() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [isHovered, setIsHovered] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Internal scroll handling
+  useEffect(() => {
+    const handleWheel = (e: WheelEvent) => {
+      if (!isHovered || !scrollRef.current) return;
+      const { scrollTop, scrollHeight, clientHeight } = scrollRef.current;
+      const isAtTop = scrollTop === 0;
+      const isAtBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
+      if ((e.deltaY < 0 && isAtTop) || (e.deltaY > 0 && isAtBottom)) return;
+      e.preventDefault();
+      scrollRef.current.scrollTop += e.deltaY;
+    };
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    return () => window.removeEventListener('wheel', handleWheel);
+  }, [isHovered]);
 
   return (
-    <div className="h-full w-full bg-[var(--sillage-cream)] text-[var(--sillage-ink)] flex flex-col p-12 overflow-y-auto no-scrollbar selection:bg-[var(--sillage-gold)]/20">
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      ref={scrollRef}
+      className="h-full w-full bg-[#f2ece0] text-[#1c1713] flex flex-col p-8 md:p-12 overflow-y-auto no-scrollbar selection:bg-[#b5893a]/20"
+    >
 
-      <div className="mb-16">
-        <h3 className="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-[var(--sillage-gold)] mb-4">Pillar 05: Branding</h3>
+      <div className="mb-12 flex-shrink-0">
+        <h3 className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-[#b5893a] mb-4">Pillar 05: Branding</h3>
         <p className="font-serif italic text-3xl">The Language Audit</p>
       </div>
 
-      <div className="grid grid-cols-2 mb-4 px-6">
-        <span className="font-mono text-[0.65rem] uppercase tracking-widest text-[var(--sillage-mist)]">GENERIC DTC</span>
-        <span className="font-mono text-[0.65rem] uppercase tracking-widest text-[var(--sillage-gold)]">SILLAGE</span>
+      <div className="grid grid-cols-2 mb-4 px-4 flex-shrink-0">
+        <span className="font-mono text-[0.6rem] uppercase tracking-widest text-[#c8c0b4]">GENERIC DTC</span>
+        <span className="font-mono text-[0.6rem] uppercase tracking-widest text-[#b5893a]">SILLAGE</span>
       </div>
 
-      <div className="flex flex-col border-t border-[var(--sillage-bone)]">
+      <div className="flex flex-col border-t border-[#e8dfd0]">
         {auditRows.map((row, i) => (
           <motion.div
             key={i}
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.08 }}
+            transition={{ delay: i * 0.05 }}
             onMouseEnter={() => setHoveredIndex(i)}
             onMouseLeave={() => setHoveredIndex(null)}
-            className={`relative border-b border-[var(--sillage-bone)] transition-colors duration-500 cursor-default ${hoveredIndex === i ? 'bg-[var(--sillage-gold)]/[0.06]' : ''}`}
+            className={`relative border-b border-[#e8dfd0] transition-colors duration-500 cursor-default ${hoveredIndex === i ? 'bg-[#b5893a]/[0.06]' : ''}`}
           >
-            <div className="grid grid-cols-2 py-6 px-6">
-              <div className="font-serif text-[var(--sillage-mist)] text-lg">
+            <div className="grid grid-cols-2 py-5 px-4">
+              <div className="font-serif text-[#c8c0b4] text-base md:text-lg">
                 "{row.generic}"
               </div>
-              <div className="font-serif text-[var(--sillage-ink)] text-lg font-medium">
+              <div className="font-serif text-[#1c1713] text-base md:text-lg font-medium">
                 "{row.sillage}"
               </div>
             </div>
@@ -61,9 +83,9 @@ export default function BrandingPanel() {
                   animate={{ height: 'auto', opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
                   transition={{ duration: 0.2 }}
-                  className="px-6 pb-6 overflow-hidden"
+                  className="px-4 pb-5 overflow-hidden"
                 >
-                  <p className="font-serif italic text-[0.85rem] text-[var(--sillage-gold)] leading-relaxed max-w-sm">
+                  <p className="font-serif italic text-[0.8rem] text-[#b5893a] leading-relaxed max-w-sm">
                     "{row.note}"
                   </p>
                 </motion.div>
@@ -76,8 +98,8 @@ export default function BrandingPanel() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.7 }}
-        transition={{ delay: 1.5 }}
-        className="mt-16 pt-8 text-center space-y-2 border-t border-[var(--sillage-bone)]"
+        transition={{ delay: 1.2 }}
+        className="mt-12 pt-8 text-center space-y-2 border-t border-[#e8dfd0] flex-shrink-0"
       >
         <p className="font-serif italic text-lg leading-relaxed">Every word above is a decision.</p>
         <p className="font-serif italic text-lg leading-relaxed">Most brands make them by default.</p>
