@@ -154,7 +154,7 @@ export default function DTCCaseStudy() {
       <div ref={containerRef} className="relative flex flex-col lg:flex-row max-w-[1400px] mx-auto px-8 py-32 gap-24">
 
         {/* Left Column: Copy */}
-        <div className="w-full lg:w-[50%] space-y-96 pb-[50vh]">
+        <div className="w-full lg:w-[45%] space-y-96 pb-[50vh]">
 
           {/* Pillar 01 */}
           <section data-pillar="01" className="space-y-12">
@@ -274,31 +274,20 @@ export default function DTCCaseStudy() {
         </div>
 
         {/* Right Column: Demo Panels (Sticky) */}
-        <div className="hidden lg:flex lg:w-[50%] h-screen sticky top-0 items-center">
-          <div className="w-full">
+        <div className="hidden lg:block lg:w-[55%]">
+          <div className="sticky top-[10vh] h-[80vh] flex flex-col justify-center">
             <DemoShell activePillar={activePillar}>
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activePillar}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1.0] }}
-                  className="h-full"
-                >
-                  {pillars.find(p => p.id === activePillar)?.component}
-                </motion.div>
-              </AnimatePresence>
+              {pillars.find(p => p.id === activePillar)?.component}
             </DemoShell>
 
-            <div className="mt-8 flex justify-between items-center px-4 font-mono text-[0.6rem] uppercase tracking-widest opacity-30">
-              <span>Pillar_{activePillar}</span>
-              <div className="flex gap-2">
+            <div className="mt-8 flex justify-between items-center px-6 font-mono text-[0.6rem] uppercase tracking-widest opacity-30">
+              <span>PILLAR_{activePillar}</span>
+              <div className="flex gap-3">
                 {pillars.map(p => (
-                  <div key={p.id} className={`w-1.5 h-1.5 rounded-full ${activePillar === p.id ? 'bg-[#b5893a] opacity-100' : 'bg-[#1c1713] opacity-20'}`} />
+                  <div key={p.id} className={`w-1 h-1 rounded-full transition-all duration-500 ${activePillar === p.id ? 'bg-[#b5893a] scale-150' : 'bg-[#1c1713] opacity-20'}`} />
                 ))}
               </div>
-              <span>Demo_V2.1</span>
+              <span>DEMO_V2.2</span>
             </div>
           </div>
         </div>

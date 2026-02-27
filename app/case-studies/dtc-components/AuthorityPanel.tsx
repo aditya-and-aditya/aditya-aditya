@@ -51,6 +51,7 @@ const constellationNotes = [
     type: "the opening",
     duration: "0 – 8 min",
     x: 15, y: 50,
+    color: "#a8c0ff", // Cold blue
     poetic: "The memory of stone.",
     content: "The first eight minutes. A synthetic accord — the only one we use. Built to replicate limestone in summer rain. Gone before you realise it was there. That is the point."
   },
@@ -59,6 +60,7 @@ const constellationNotes = [
     type: "the body",
     duration: "1 – 5 hrs",
     x: 50, y: 30,
+    color: "#d8b4fe", // Powdered purple
     poetic: "Powdered bone.",
     content: "The heart of the experience. Cold-macerated Florentine orris. It provides a structural, vertical quality that anchors the volatile petrichor."
   },
@@ -67,6 +69,7 @@ const constellationNotes = [
     type: "the ghost",
     duration: "6 hrs → forever",
     x: 85, y: 60,
+    color: "#84cc16", // Earthy green
     poetic: "Volcanic earth.",
     content: "Dark without being heavy. Réunion vetiver character: dark without being heavy, earthy without being dirty."
   }
@@ -87,40 +90,53 @@ export default function AuthorityPanel() {
     }
   }, [layer]);
 
+  const getBackground = () => {
+    if (layer === 'craft') return '#f2ece0';
+    if (layer === 'entry') return '#0a0907';
+
+    // Art layer background with atmospheric mixing
+    if (hoveredNote !== null) {
+      const note = constellationNotes[hoveredNote];
+      return `radial-gradient(circle at ${note.x}% ${note.y}%, ${note.color}22 0%, #0a0907 70%)`;
+    }
+
+    return 'radial-gradient(circle at 50% 50%, #b5893a11 0%, #0a0907 80%)';
+  };
+
   return (
-    <div className="h-full w-full relative overflow-hidden flex flex-col transition-colors duration-700" style={{ backgroundColor: layer === 'craft' ? '#f2ece0' : '#0a0907' }}>
+    <div className="h-full w-full relative overflow-hidden flex flex-col transition-all duration-1000" style={{ background: getBackground() }}>
 
       <AnimatePresence mode="wait">
         {/* Layer 1: Entry */}
         {layer === 'entry' && (
           <motion.div
             key="entry"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
             className="flex-1 flex flex-col items-center justify-center p-8 text-center"
           >
             <motion.h2
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 1 }}
-              className="font-display text-[clamp(4rem,12vw,10rem)] font-extralight text-[#faf7f2] tracking-[0.3em] leading-none mb-6"
+              transition={{ delay: 0.4, duration: 1.2 }}
+              className="font-display text-[clamp(4rem,14vw,12rem)] font-extralight text-[#faf7f2] tracking-[0.4em] leading-none mb-4"
             >
               No. 3
             </motion.h2>
             <motion.h3
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.5, duration: 1 }}
+              transition={{ delay: 1.2, duration: 1 }}
               className="font-serif italic text-2xl md:text-3xl text-[#b5893a] mb-8"
             >
               "Before Rain"
             </motion.h3>
             <motion.p
               initial={{ opacity: 0 }}
-              animate={{ opacity: 0.6 }}
-              transition={{ delay: 2.2, duration: 1 }}
+              animate={{ opacity: 0.5 }}
+              transition={{ delay: 2, duration: 1 }}
               className="font-serif text-lg text-[#faf7f2] mb-16 max-w-sm"
             >
               The scent of a sky about to open.
@@ -128,18 +144,18 @@ export default function AuthorityPanel() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 2.8 }}
-              className="flex gap-12 mt-auto"
+              transition={{ delay: 2.6 }}
+              className="flex gap-16"
             >
               <button
                 onClick={() => setLayer('craft')}
-                className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-[#b5893a] border-b border-[#b5893a]/40 pb-1 hover:text-[#faf7f2] hover:border-[#faf7f2] transition-all"
+                className="font-mono text-[0.65rem] uppercase tracking-[0.3em] text-[#b5893a] border-b border-[#b5893a]/30 pb-1 hover:text-[#faf7f2] hover:border-[#faf7f2] transition-all duration-500"
               >
                 [ THE CRAFT ]
               </button>
               <button
                 onClick={() => setLayer('art')}
-                className="font-mono text-[0.65rem] uppercase tracking-[0.2em] text-[#b5893a] border-b border-[#b5893a]/40 pb-1 hover:text-[#faf7f2] hover:border-[#faf7f2] transition-all"
+                className="font-mono text-[0.65rem] uppercase tracking-[0.3em] text-[#b5893a] border-b border-[#b5893a]/30 pb-1 hover:text-[#faf7f2] hover:border-[#faf7f2] transition-all duration-500"
               >
                 [ THE ART ]
               </button>
@@ -151,21 +167,21 @@ export default function AuthorityPanel() {
         {layer === 'craft' && (
           <motion.div
             key="craft"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.6 }}
-            className="flex-1 flex flex-col p-8 md:p-12 overflow-y-auto no-scrollbar"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1.0] }}
+            className="flex-1 flex flex-col p-8 md:p-16 overflow-y-auto no-scrollbar"
           >
-            <div className="space-y-2 mb-12">
+            <div className="space-y-2 mb-16">
               {productionStages.map((stage) => (
                 <div key={stage.id} className="border-t border-[#1c1713]/10">
                   <button
                     onClick={() => setExpandedStage(expandedStage === stage.id ? null : stage.id)}
-                    className="w-full text-left py-6 group"
+                    className="w-full text-left py-8 group"
                   >
-                    <div className="font-mono text-[0.6rem] text-[#b5893a] mb-2 uppercase tracking-widest">{stage.id} ──</div>
-                    <div className="font-serif text-lg text-[#1c1713] mb-1 uppercase tracking-tight">{stage.title}</div>
+                    <div className="font-mono text-[0.6rem] text-[#b5893a] mb-3 uppercase tracking-widest">{stage.id} ──</div>
+                    <div className="font-serif text-xl text-[#1c1713] mb-1 uppercase tracking-tight group-hover:pl-2 transition-all duration-500">{stage.title}</div>
                     <div className="font-mono text-[0.65rem] text-[#c8c0b4] uppercase tracking-tight">{stage.subtitle}</div>
 
                     <AnimatePresence>
@@ -174,10 +190,10 @@ export default function AuthorityPanel() {
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: 'auto', opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1.0] }}
+                          transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1.0] }}
                           className="overflow-hidden"
                         >
-                          <p className="pt-6 font-serif italic text-sm leading-relaxed text-[#1c1713]/80 max-w-md">
+                          <p className="pt-8 font-serif italic text-base leading-relaxed text-[#1c1713]/70 max-w-md">
                             {stage.content}
                           </p>
                         </motion.div>
@@ -186,16 +202,16 @@ export default function AuthorityPanel() {
                   </button>
                 </div>
               ))}
-              <div className="border-t border-[#1c1713]/10 py-6">
-                <div className="font-mono text-[0.6rem] text-[#b5893a] mb-2">↓</div>
-                <div className="font-serif text-lg uppercase tracking-tight">Bottled.</div>
+              <div className="border-t border-[#1c1713]/10 py-8">
+                <div className="font-mono text-[0.6rem] text-[#b5893a] mb-3">↓</div>
+                <div className="font-serif text-xl uppercase tracking-tight">Bottled.</div>
               </div>
             </div>
 
-            <div className="mt-auto pt-12 text-center border-t border-[#1c1713]/10">
-              <div className="font-mono text-xl text-[#b5893a] mb-2">23% concentration.</div>
-              <div className="font-serif italic text-lg opacity-60 mb-12">Built for skin. Not for first impression.</div>
-              <div className="flex justify-center gap-12 font-mono text-[0.6rem] uppercase tracking-widest text-[#c8c0b4]">
+            <div className="mt-auto pt-16 text-center border-t border-[#1c1713]/10">
+              <div className="font-mono text-2xl text-[#b5893a] mb-3">23% concentration.</div>
+              <div className="font-serif italic text-xl opacity-50 mb-16">Built for skin. Not for first impression.</div>
+              <div className="flex justify-center gap-16 font-mono text-[0.65rem] uppercase tracking-[0.3em] text-[#c8c0b4]">
                 <button onClick={() => setLayer('entry')} className="hover:text-[#b5893a] transition-colors">← Entry</button>
                 <button onClick={() => setLayer('art')} className="hover:text-[#b5893a] transition-colors">Art →</button>
               </div>
@@ -207,64 +223,69 @@ export default function AuthorityPanel() {
         {layer === 'art' && (
           <motion.div
             key="art"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.02 }}
+            transition={{ duration: 0.8 }}
             className="flex-1 flex flex-col p-8 md:p-12 overflow-hidden"
           >
             {/* Evaporation Texture */}
-            <div className="absolute inset-0 pointer-events-none opacity-[0.05]">
+            <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
               <svg width="100%" height="100%">
-                <filter id="noiseFilter">
-                  <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" seed="2" />
+                <filter id="noiseFilterArt">
+                  <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="4" seed="2" />
                 </filter>
-                <rect width="100%" height="100%" filter="url(#noiseFilter)" />
+                <rect width="100%" height="100%" filter="url(#noiseFilterArt)" />
               </svg>
             </div>
 
             {/* Scent Constellation */}
             <div className="relative flex-1 flex flex-col justify-center items-center">
-              <svg viewBox="0 0 100 100" className="w-full h-full max-h-[300px] relative z-10 overflow-visible">
+              <svg viewBox="0 0 100 100" className="w-full h-full max-h-[350px] relative z-10 overflow-visible">
                 <motion.path
                   d="M 15 50 C 30 20, 70 20, 85 60"
                   fill="none"
                   stroke="#faf7f2"
-                  strokeWidth="0.2"
-                  strokeOpacity="0.2"
+                  strokeWidth="0.15"
+                  strokeOpacity="0.15"
                   initial={{ pathLength: 0 }}
                   animate={{ pathLength: 1 }}
-                  transition={{ duration: 2, ease: "easeInOut" }}
+                  transition={{ duration: 2.5, ease: "easeInOut" }}
                 />
                 {constellationNotes.map((note, i) => (
                   <g key={note.name}>
                     <motion.circle
-                      cx={note.x} cy={note.y} r="1.5"
-                      fill="#b5893a"
+                      cx={note.x} cy={note.y} r="1.2"
+                      fill={note.color}
                       initial={{ scale: 0, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      transition={{ delay: i * 0.5 }}
+                      animate={{
+                        scale: hoveredNote === i ? 2 : 1,
+                        opacity: 1,
+                        boxShadow: hoveredNote === i ? `0 0 20px ${note.color}` : 'none'
+                      }}
+                      transition={{ delay: i * 0.6, duration: 0.4 }}
                       onMouseEnter={() => setHoveredNote(i)}
                       onMouseLeave={() => setHoveredNote(null)}
                       className="cursor-pointer"
                     />
                     <motion.text
-                      x={note.x} y={note.y + 6}
+                      x={note.x} y={note.y + 7}
                       textAnchor="middle"
-                      className="font-serif text-[3px] fill-[#faf7f2] opacity-80"
+                      className="font-serif text-[3.5px] fill-[#faf7f2]"
+                      style={{ opacity: hoveredNote === i ? 1 : 0.6 }}
                       initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: i * 0.5 + 0.2 }}
+                      animate={{ opacity: 0.6 }}
+                      transition={{ delay: i * 0.6 + 0.3 }}
                     >
                       {note.name}
                     </motion.text>
                     <motion.text
-                      x={note.x} y={note.y + 9}
+                      x={note.x} y={note.y + 10}
                       textAnchor="middle"
-                      className="font-mono text-[2px] fill-[#b5893a] uppercase tracking-widest"
+                      className="font-mono text-[2.2px] fill-[#b5893a] uppercase tracking-[0.2em]"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      transition={{ delay: i * 0.5 + 0.3 }}
+                      transition={{ delay: i * 0.6 + 0.4 }}
                     >
                       {note.duration}
                     </motion.text>
@@ -276,18 +297,19 @@ export default function AuthorityPanel() {
               <AnimatePresence>
                 {hoveredNote !== null && (
                   <motion.div
-                    initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                    initial={{ opacity: 0, scale: 0.9, y: 10 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95, y: 10 }}
-                    className="absolute z-20 w-48 bg-[#f2ece0] border border-[#b5893a] p-4 shadow-2xl pointer-events-none"
+                    exit={{ opacity: 0, scale: 0.9, y: 10 }}
+                    className="absolute z-20 w-56 bg-[#f2ece0] border border-[#b5893a] p-6 shadow-2xl pointer-events-none"
                     style={{
                       left: `${constellationNotes[hoveredNote].x}%`,
-                      top: `${constellationNotes[hoveredNote].y + 15}%`,
-                      transform: 'translateX(-50%)'
+                      top: `${constellationNotes[hoveredNote].y + 18}%`,
+                      transform: 'translateX(-50%)',
+                      borderColor: constellationNotes[hoveredNote].color
                     }}
                   >
-                    <p className="font-mono text-[0.5rem] text-[#b5893a] uppercase mb-2 tracking-widest">{constellationNotes[hoveredNote].poetic}</p>
-                    <p className="font-serif italic text-xs leading-relaxed text-[#1c1713]">
+                    <p className="font-mono text-[0.55rem] uppercase mb-3 tracking-[0.2em]" style={{ color: constellationNotes[hoveredNote].color }}>{constellationNotes[hoveredNote].poetic}</p>
+                    <p className="font-serif italic text-sm leading-relaxed text-[#1c1713]">
                       {constellationNotes[hoveredNote].content}
                     </p>
                   </motion.div>
@@ -296,33 +318,33 @@ export default function AuthorityPanel() {
             </div>
 
             {/* Scene Lines */}
-            <div className="h-20 flex items-center justify-center text-center px-4">
+            <div className="h-24 flex items-center justify-center text-center px-6">
               <AnimatePresence mode="wait">
                 <motion.p
                   key={sceneIndex}
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 1 }}
-                  className="font-serif italic text-lg md:text-xl text-[#faf7f2] opacity-60 leading-relaxed"
+                  exit={{ opacity: 0, y: -15 }}
+                  transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1.0] }}
+                  className="font-serif italic text-xl md:text-2xl text-[#faf7f2] opacity-50 leading-relaxed"
                 >
                   "{sceneLines[sceneIndex]}"
                 </motion.p>
               </AnimatePresence>
             </div>
 
-            <div className="mt-auto flex flex-col items-center gap-8">
+            <div className="mt-auto flex flex-col items-center gap-10">
               <motion.button
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 6 }}
-                className="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-[#b5893a] hover:text-[#faf7f2] relative group pb-1"
+                className="font-mono text-[0.75rem] uppercase tracking-[0.3em] text-[#b5893a] hover:text-[#faf7f2] relative group pb-1"
               >
                 [ Begin Your Bottle ]
-                <span className="absolute bottom-0 left-0 w-0 h-px bg-[#faf7f2] group-hover:w-full transition-all duration-500" />
+                <span className="absolute bottom-0 left-0 w-0 h-px bg-[#faf7f2] group-hover:w-full transition-all duration-700" />
               </motion.button>
 
-              <div className="flex justify-center gap-12 font-mono text-[0.6rem] uppercase tracking-widest text-[#c8c0b4]">
+              <div className="flex justify-center gap-16 font-mono text-[0.6rem] uppercase tracking-[0.3em] text-[#c8c0b4]">
                 <button onClick={() => setLayer('craft')} className="hover:text-[#b5893a] transition-colors">← Craft</button>
                 <button onClick={() => setLayer('entry')} className="hover:text-[#b5893a] transition-colors">Entry</button>
               </div>
