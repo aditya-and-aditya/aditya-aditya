@@ -3,80 +3,23 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-type Source = 'Instagram' | 'Google' | 'Email' | 'Direct' | 'Word of Mouth';
-
-const sourceData: Record<Source, any> = {
-  'Instagram': {
-    hero: {
-      visual: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=1000",
-      headline: "Some things you feel before you understand them.",
-      subhead: "",
-      cta: "Discover Sillage",
-      layout: "atmospheric"
-    },
-    products: "hidden"
-  },
-  'Google': {
-    hero: {
-      visual: "https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&q=80&w=1000",
-      headline: "Built to last 12 hours on skin. Here's why.",
-      subhead: "Cold-pressed extraction. 23% concentration. No compromise.",
-      cta: "See the Formulas",
-      layout: "data-forward"
-    },
-    products: "visible"
-  },
-  'Email': {
-    hero: {
-      visual: "none",
-      headline: "The one we've been holding back.",
-      subhead: "New arrival. 48 hours before anyone else.",
-      cta: "Your Early Access",
-      layout: "minimal"
-    },
-    products: "single"
-  },
-  'Direct': {
-    hero: {
-      visual: "none",
-      headline: "Welcome back.",
-      subhead: "Three new arrivals since your last visit.",
-      cta: "See What's New",
-      layout: "brand-mark"
-    },
-    products: "new-arrivals"
-  },
-  'Word of Mouth': {
-    hero: {
-      visual: "split",
-      headline: "You heard about us. Here's everything.",
-      subhead: "Start anywhere. We'll find your frequency.",
-      cta: "Take the Scent Quiz",
-      layout: "split"
-    },
-    products: "bestsellers"
-  }
-};
+type Source = 'INSTAGRAM' | 'GOOGLE' | 'EMAIL' | 'DIRECT' | 'A FRIEND';
 
 export default function PresencePanel() {
-  const [activeSource, setActiveSource] = useState<Source>('Instagram');
-
-  const content = sourceData[activeSource];
+  const [activeSource, setActiveSource] = useState<Source>('INSTAGRAM');
 
   return (
-    <div className="h-full w-full bg-[#faf8f4] text-[#1a1410] flex flex-col overflow-hidden">
-      <div className="bg-[#1a1410] p-4 flex flex-col gap-2">
-        <span className="font-mono text-[0.5rem] uppercase tracking-widest text-[#faf8f4]/40">Simulate Arrival From:</span>
-        <div className="flex flex-wrap gap-2">
-          {(Object.keys(sourceData) as Source[]).map((source) => (
+    <div className="h-full w-full bg-[var(--sillage-cream)] text-[var(--sillage-ink)] flex flex-col overflow-hidden">
+
+      {/* Source Bar */}
+      <div className="bg-[var(--sillage-black)] p-4 flex items-center gap-6">
+        <span className="font-mono text-[0.65rem] text-[var(--sillage-mist)] uppercase tracking-widest whitespace-nowrap">ARRIVING FROM:</span>
+        <div className="flex gap-4 overflow-x-auto no-scrollbar">
+          {(['INSTAGRAM', 'GOOGLE', 'EMAIL', 'DIRECT', 'A FRIEND'] as Source[]).map(source => (
             <button
               key={source}
               onClick={() => setActiveSource(source)}
-              className={`px-3 py-1 font-mono text-[0.6rem] uppercase tracking-wider transition-all duration-300 ${
-                activeSource === source
-                  ? 'bg-[#c8832a] text-[#faf8f4]'
-                  : 'bg-[#faf8f4]/10 text-[#faf8f4]/60 hover:bg-[#faf8f4]/20'
-              }`}
+              className={`px-3 py-1 font-mono text-[0.6rem] uppercase tracking-wider whitespace-nowrap transition-all ${activeSource === source ? 'text-[var(--sillage-gold)] border border-[var(--sillage-gold)]' : 'text-[var(--sillage-mist)] hover:text-[var(--sillage-white)]'}`}
             >
               {source}
             </button>
@@ -84,6 +27,7 @@ export default function PresencePanel() {
         </div>
       </div>
 
+      {/* Hero Container */}
       <div className="flex-1 relative overflow-y-auto no-scrollbar">
         <AnimatePresence mode="wait">
           <motion.div
@@ -92,90 +36,137 @@ export default function PresencePanel() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
-            className="min-h-full flex flex-col"
+            className="h-full"
           >
-            <section className={`relative min-h-[400px] flex items-center justify-center p-8 overflow-hidden ${
-              content.hero.layout === 'brand-mark' ? 'bg-[#faf8f4]' : ''
-            }`}>
-              {content.hero.visual !== 'none' && content.hero.visual !== 'split' && (
-                <div className="absolute inset-0 z-0">
-                  <img src={content.hero.visual} alt="" className="w-full h-full object-cover opacity-20" />
-                  <div className="absolute inset-0 bg-gradient-to-b from-[#faf8f4]/80 to-[#faf8f4]"></div>
+            {activeSource === 'INSTAGRAM' && (
+              <div className="h-full flex flex-col items-center justify-center p-12 text-center relative bg-[var(--sillage-black)]">
+                <div className="absolute inset-0 bg-gradient-to-b from-[#2a1f14] to-[#0a0907] opacity-60" />
+                <div className="absolute inset-0 pointer-events-none opacity-[0.08]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}></div>
+
+                <div className="relative z-10 space-y-4">
+                  <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 0.6, y: 0 }} transition={{ delay: 0.2 }} className="font-serif text-[2.2rem] text-[var(--sillage-white)] leading-tight">Some things you feel</motion.p>
+                  <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 0.9, y: 0 }} transition={{ delay: 0.4 }} className="font-serif italic text-[2.2rem] text-[var(--sillage-white)] leading-tight">before you understand them.</motion.p>
                 </div>
-              )}
 
-              {content.hero.layout === 'split' && (
-                <div className="absolute inset-0 flex z-0">
-                  <div className="w-1/2 h-full bg-[#e8e2d8]"></div>
-                  <div className="w-1/2 h-full bg-[#faf8f4]"></div>
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 0.2 }} transition={{ delay: 1 }} className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+                  <span className="font-mono text-[0.5rem] uppercase tracking-widest text-[var(--sillage-white)]">Scroll</span>
+                  <div className="h-12 w-px bg-[var(--sillage-gold)] animate-pulse" />
+                </motion.div>
+              </div>
+            )}
+
+            {activeSource === 'GOOGLE' && (
+              <div className="h-full flex p-12 bg-[var(--sillage-white)]">
+                <div className="w-[60%] flex flex-col justify-center pr-12">
+                  <span className="font-mono text-[0.65rem] text-[var(--sillage-gold)] uppercase tracking-widest mb-6 block">THE ANSWER TO YOUR SEARCH</span>
+                  <h2 className="font-serif text-[2.8rem] text-[var(--sillage-ink)] leading-[1.1] mb-6">Built to last 8 hours <br/> on skin. Here is why.</h2>
+                  <div className="font-mono text-[0.8rem] text-charcoal space-y-2 mb-10 opacity-70">
+                    <p>23% concentration.</p>
+                    <p>Cold-press extraction.</p>
+                    <p>47 iterations.</p>
+                  </div>
+                  <div className="flex gap-8">
+                    <button className="font-mono text-[0.7rem] uppercase tracking-widest border-b border-[var(--sillage-gold)] text-[var(--sillage-gold)] pb-1">See the Formula</button>
+                    <button className="font-mono text-[0.7rem] uppercase tracking-widest border-b border-[var(--sillage-ink)] text-[var(--sillage-ink)] pb-1">Start With No. 3</button>
+                  </div>
+
+                  <div className="mt-16 space-y-4 max-w-xs">
+                    {[
+                      { name: 'No. 1 — Morning', val: 90, h: '10h' },
+                      { name: 'No. 2 — Threshold', val: 75, h: '8h' },
+                      { name: 'No. 3 — Before Rain', val: 75, h: '8h' }
+                    ].map(item => (
+                      <div key={item.name} className="space-y-1">
+                        <div className="flex justify-between font-mono text-[0.6rem] uppercase tracking-tighter opacity-40">
+                          <span>{item.name}</span>
+                          <span>{item.h}</span>
+                        </div>
+                        <div className="h-1 w-full bg-[var(--sillage-bone)]">
+                          <motion.div initial={{ width: 0 }} animate={{ width: `${item.val}%` }} transition={{ duration: 0.8, delay: 0.5 }} className="h-full bg-[var(--sillage-gold)]" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              )}
+                <div className="w-[40%] flex items-center justify-center bg-[var(--sillage-bone)]/30">
+                  <span className="font-serif italic text-6xl opacity-10">S_3</span>
+                </div>
+              </div>
+            )}
 
-              <div className={`relative z-10 max-w-lg text-center ${
-                content.hero.layout === 'data-forward' ? 'text-left max-w-xl' : ''
-              }`}>
-                {content.hero.layout === 'brand-mark' && (
-                  <div className="mb-12 font-serif text-4xl italic tracking-[0.2em] opacity-20">SILLAGE</div>
-                )}
+            {activeSource === 'EMAIL' && (
+              <div className="h-full flex flex-col items-center justify-center p-12 bg-[var(--sillage-white)] text-center">
+                <span className="font-mono text-[0.65rem] text-[var(--sillage-gold)] uppercase tracking-widest mb-12 block">For subscribers — 48 hours early.</span>
+                <h2 className="font-serif italic text-[3rem] text-[var(--sillage-ink)] leading-tight mb-16">The one we have <br/> been holding back.</h2>
 
-                <h2 className="font-serif text-3xl md:text-5xl font-light mb-6 leading-tight">
-                  {content.hero.headline}
-                </h2>
+                <div className="w-full max-w-sm aspect-[4/3] bg-[var(--sillage-bone)] mb-16 flex items-center justify-center relative overflow-hidden group">
+                  <span className="font-serif italic text-5xl opacity-10">No. 2 — Threshold</span>
+                  <div className="absolute bottom-4 left-4 right-4 flex justify-between font-mono text-[0.6rem] text-[var(--sillage-ink)] opacity-40">
+                    <span>£175</span>
+                    <span>INTELLECTUAL_S_2</span>
+                  </div>
+                </div>
 
-                {content.hero.subhead && (
-                  <p className="font-serif italic text-lg opacity-60 mb-8">
-                    {content.hero.subhead}
+                <div className="space-y-8">
+                  <p className="font-mono text-[0.65rem] italic text-[var(--sillage-mist)]">
+                    Three others have opened this email. <br/> None have ordered yet.
                   </p>
-                )}
-
-                <button className={`px-8 py-3 font-mono text-[0.7rem] uppercase tracking-[0.2em] transition-all duration-500 ${
-                  content.hero.layout === 'atmospheric'
-                    ? 'border border-[#1a1410]/20 hover:border-[#1a1410]'
-                    : 'bg-[#c8832a] text-[#faf8f4] hover:bg-[#1a1410]'
-                }`}>
-                  {content.hero.cta}
-                </button>
+                  <div className="font-mono text-[0.7rem] text-[var(--sillage-gold)] uppercase tracking-widest">
+                    [ Your Early Access Ends in 47:22:58 ]
+                  </div>
+                </div>
               </div>
-            </section>
+            )}
 
-            <section className="p-8 border-t border-[#1a1410]/5">
-              <div className="flex justify-between items-end mb-8">
-                <span className="font-mono text-[0.6rem] uppercase tracking-widest text-[#1a1410]/40">
-                  {content.products === 'hidden' ? 'Scroll to reveal products' : 'Featured Collection'}
-                </span>
+            {activeSource === 'DIRECT' && (
+              <div className="h-full flex flex-col items-center justify-center p-12 bg-[var(--sillage-white)]">
+                <div className="font-serif text-4xl italic tracking-[0.2em] opacity-20 mb-20">SILLAGE</div>
+                <div className="max-w-md w-full space-y-12">
+                  <motion.h2 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }} className="font-serif text-[1.4rem] text-[var(--sillage-ink)]">
+                    Three things have changed <br/> since your last visit.
+                  </motion.h2>
+                  <div className="space-y-8">
+                    {[
+                      { l: 'STOCK', r: 'No. 2 "Threshold" is back in stock.' },
+                      { l: 'NOTES', r: 'New production notes added to No. 3.' },
+                      { l: 'NEXT', r: 'The next fragrance has a name.' }
+                    ].map((row, i) => (
+                      <motion.div key={row.l} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1 + i * 0.3 }} className="flex gap-8 group cursor-pointer">
+                        <span className="font-mono text-[0.6rem] text-[var(--sillage-gold)] w-12">── {row.l}</span>
+                        <span className="font-mono text-[0.65rem] text-[var(--sillage-ink)] group-hover:text-[var(--sillage-gold)] transition-colors">{row.r}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
               </div>
+            )}
 
-              <div className="grid grid-cols-2 gap-8">
-                {[1, 2].map((i) => (
-                  <motion.div
-                    key={i}
-                    initial={content.products === 'hidden' ? { opacity: 0, y: 20 } : { opacity: 1, y: 0 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="space-y-4"
-                  >
-                    <div className="aspect-[3/4] bg-[#e8e2d8] flex items-center justify-center">
-                       <span className="font-serif italic text-4xl opacity-10">S_{i}</span>
-                    </div>
-                    <div className="h-4 w-2/3 bg-[#1a1410]/5"></div>
-                    <div className="h-3 w-1/3 bg-[#1a1410]/5"></div>
-                  </motion.div>
-                ))}
+            {activeSource === 'A FRIEND' && (
+              <div className="h-full flex flex-col bg-[var(--sillage-white)]">
+                <div className="flex-1 flex border-b border-[var(--sillage-bone)]">
+                  <div className="w-1/2 p-12 flex flex-col justify-center border-r border-[var(--sillage-bone)]">
+                    <h2 className="font-serif italic text-[2.5rem] leading-tight text-[var(--sillage-ink)]">You heard <br/> about us.</h2>
+                  </div>
+                  <div className="w-1/2 p-12 flex flex-col justify-center bg-[var(--sillage-cream)]">
+                    <h2 className="font-serif text-[2.5rem] leading-tight text-[var(--sillage-ink)]">Here is <br/> everything.</h2>
+                  </div>
+                </div>
+                <div className="p-12 max-w-2xl mx-auto space-y-8 text-center">
+                  <div className="space-y-4 font-serif text-[1.1rem] leading-relaxed opacity-70">
+                    <p>Sillage is not for everyone. It is the trail a fragrance leaves in the air after a person has passed through. It is the invisible proof that someone was there.</p>
+                    <p>We do not announce ourselves. We make something that lasts on the skin and lingers in the memory. That is all.</p>
+                    <p className="italic">Start anywhere.</p>
+                  </div>
+                  <button className="font-mono text-[0.7rem] uppercase tracking-[0.2em] text-[var(--sillage-gold)] border-b border-[var(--sillage-gold)] pb-1 hover:text-[var(--sillage-ink)] hover:border-[var(--sillage-ink)] transition-all">
+                    [ Find Your Frequency ]
+                  </button>
+                </div>
               </div>
-            </section>
+            )}
           </motion.div>
         </AnimatePresence>
       </div>
 
-      <style jsx>{`
-        .no-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        .no-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}</style>
     </div>
   );
 }

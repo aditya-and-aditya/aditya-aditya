@@ -4,115 +4,134 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const signals = [
-  "23 customers viewing No. 3 right now",
-  "Most filtered note this hour: Vetiver",
-  "Abandoned cart note pattern: Oud + Rose",
-  "Trending search: \"something different\"",
-  "Peak add-to-cart window: 9pm – 11pm",
-  "Customer affinity: Iris + Smoke (High LTV)",
-  "Geo-spike: Tokyo interest in \"Before Rain\"",
-  "Return rate correlation: \"Clean\" descriptor",
-  "New search cluster: \"mineral leather\"",
-  "Inventory alert: No. 5 maceration delay",
+  "No. 3 viewed for 4m 32s · no add to cart [note: Iris Root · Vetiver]",
+  "Search: \"something like rain but warmer\"",
+  "No. 1 added to cart · source: email",
+  "Cart abandoned · item: No. 2 · step: shipping",
+  "Filter applied: \"unisex\" · session 3+ pages",
+  "Review submitted · \"wearing this to a funeral\"",
+  "No. 3 wishlist add · returning visitor",
+  "Search: \"does it last\"",
+  "Geo-spike: Paris · cluster around No. 2",
+  "Affinity detected: Iris + Smoke [High LTV]",
   "Session depth: 14m average for collectors",
   "Gift intent rising: +15% WoW",
   "Mobile conversion: Midnight over-indexing"
 ];
 
 export default function InsightsPanel() {
-  const [activeSignals, setActiveSignals] = useState<string[]>(signals.slice(0, 5));
+  const [activeSignals, setActiveSignals] = useState<string[]>(signals.slice(0, 6));
+  const [time, setTime] = useState(new Date());
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const signalInterval = setInterval(() => {
       setActiveSignals(prev => {
         const nextSignal = signals[Math.floor(Math.random() * signals.length)];
         const filtered = prev.filter(s => s !== nextSignal);
-        return [nextSignal, ...filtered.slice(0, 4)];
+        return [nextSignal, ...filtered.slice(0, 5)];
       });
     }, 3000);
-    return () => clearInterval(interval);
+
+    const timeInterval = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
+
+    return () => {
+      clearInterval(signalInterval);
+      clearInterval(timeInterval);
+    };
   }, []);
 
   return (
-    <div className="h-full w-full bg-[#0e0c0a] text-[#faf8f4] flex flex-col p-8 overflow-y-auto no-scrollbar selection:bg-[#c8832a]/30">
-      <div className="flex justify-between items-center mb-10">
-        <h3 className="font-mono text-[0.7rem] uppercase tracking-[0.12em] text-[#c8832a]">Internal Infrastructure</h3>
-        <div className="flex items-center gap-2 font-mono text-[0.6rem] text-[#c8832a]/60">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#c8832a] animate-pulse"></span>
-          LIVE PULSE
+    <div className="h-full w-full bg-[var(--sillage-black)] text-[var(--sillage-white)] flex flex-col p-10 overflow-hidden font-mono selection:bg-[var(--sillage-gold)]/30">
+
+      {/* Dashboard Header */}
+      <div className="flex justify-between items-end mb-12 border-b border-[var(--sillage-white)]/10 pb-4">
+        <div className="space-y-1">
+          <div className="text-[0.65rem] uppercase tracking-[0.2em] flex items-center gap-2">
+            SILLAGE / INTELLIGENCE LAYER
+            <motion.span animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 2, repeat: Infinity }} className="w-1.5 h-1.5 rounded-full bg-[var(--sillage-gold)]" />
+            <span className="text-[var(--sillage-gold)]">LIVE</span>
+          </div>
+        </div>
+        <div className="text-[0.6rem] text-[var(--sillage-mist)] opacity-60 text-right">
+          {time.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short' }).toUpperCase()} <br/>
+          {time.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false })} · 127 ACTIVE SESSIONS
         </div>
       </div>
 
-      <div className="space-y-12">
-        <div className="border border-[#faf8f4]/10 bg-[#faf8f4]/5">
-          <div className="px-6 py-3 border-b border-[#faf8f4]/10 flex justify-between">
-            <span className="font-mono text-[0.6rem] uppercase tracking-widest opacity-40">Live Signals</span>
-            <span className="font-mono text-[0.6rem] opacity-40">NRT-V3</span>
-          </div>
-          <div className="p-6 h-[220px] overflow-hidden flex flex-col">
+      <div className="flex-1 space-y-12 overflow-y-auto no-scrollbar">
+
+        {/* Layer A: Live Signals */}
+        <div>
+          <h4 className="text-[0.65rem] uppercase tracking-widest text-[var(--sillage-gold)] mb-6 opacity-60">LIVE SIGNALS</h4>
+          <div className="h-[240px] relative overflow-hidden flex flex-col gap-2">
             <AnimatePresence initial={false}>
-              {activeSignals.map((signal) => (
+              {activeSignals.map((signal, i) => (
                 <motion.div
                   key={signal}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 10 }}
-                  transition={{ duration: 0.5 }}
-                  className="py-3 border-b border-[#faf8f4]/5 last:border-0 font-mono text-[0.7rem] tracking-tight opacity-80"
+                  initial={{ opacity: 0, y: -12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 12 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  className="flex gap-4 py-3 border-b border-[var(--sillage-white)]/5 last:border-0"
                 >
-                  {signal}
+                  <span className="text-[var(--sillage-gold)] flex-shrink-0">→</span>
+                  <span className="text-[0.7rem] tracking-tight text-[var(--sillage-white)]/90 flex-1">{signal.split(' · ')[0]}</span>
+                  {signal.includes(' · ') && (
+                    <span className="text-[0.6rem] text-[var(--sillage-mist)] opacity-50 uppercase">{signal.split(' · ')[1]}</span>
+                  )}
                 </motion.div>
               ))}
             </AnimatePresence>
           </div>
         </div>
 
-        <div className="border border-[#faf8f4]/10 bg-[#faf8f4]/5">
-          <div className="px-6 py-3 border-b border-[#faf8f4]/10">
-            <span className="font-mono text-[0.6rem] uppercase tracking-widest opacity-40">This Week's Signal</span>
-          </div>
-          <div className="p-8">
-            <p className="font-serif italic text-lg leading-relaxed mb-6">
-              "Customers who purchase in the <span className="text-[#c8832a]">"Woody"</span> category are returning 2.3x faster than last quarter. The word <span className="text-[#c8832a]">"grounding"</span> appears in 34% of their reviews."
+        {/* Layer B: Weekly Pattern */}
+        <div className="bg-[var(--sillage-white)]/5 p-8 space-y-8 border border-[var(--sillage-white)]/10">
+          <h4 className="text-[0.65rem] uppercase tracking-widest text-[var(--sillage-gold)] opacity-60">THIS WEEK'S PATTERN</h4>
+          <div className="space-y-6">
+            <p className="font-serif text-[1.1rem] italic leading-relaxed text-[var(--sillage-white)]/90">
+              Customers in the <span className="text-[var(--sillage-gold)]">Woody</span> category are returning 2.3x faster than last quarter.
             </p>
-            <div className="space-y-4 pt-6 border-t border-[#faf8f4]/10">
-              <div className="flex gap-4">
-                <span className="font-mono text-[0.6rem] uppercase tracking-widest opacity-30 w-24">Hypothesis</span>
-                <span className="font-mono text-[0.6rem] tracking-tight opacity-70">Post-summer reorientation.</span>
+            <p className="font-serif text-[1.1rem] italic leading-relaxed text-[var(--sillage-white)]/90">
+              The word <span className="text-[var(--sillage-gold)]">"grounding"</span> appears in 34% of their recent reviews — up from 8% in Q3.
+            </p>
+            <div className="pt-6 border-t border-[var(--sillage-white)]/10 space-y-4">
+              <p className="text-[0.7rem] text-[var(--sillage-mist)] opacity-80">This is a post-summer reorientation signal. They are looking for a familiar fragrance, not a new one.</p>
+              <div className="bg-[var(--sillage-white)]/5 p-4 flex gap-4 items-center">
+                <span className="text-[0.6rem] uppercase tracking-widest text-[var(--sillage-gold)]">Recommendation</span>
+                <span className="text-[0.7rem] italic opacity-90">Subject line: "Still here."</span>
               </div>
-              <div className="flex gap-4">
-                <span className="font-mono text-[0.6rem] uppercase tracking-widest opacity-30 w-24">Action</span>
-                <span className="font-mono text-[0.6rem] tracking-tight opacity-70">Feature Woody collection in next email. Lead with the word.</span>
-              </div>
+            </div>
+          </div>
+          <div className="flex justify-between text-[0.6rem] text-[var(--sillage-mist)] opacity-50">
+            <span>CONFIDENCE: HIGH · 847 DATA POINTS</span>
+            <span>GEN: 06 MAR</span>
+          </div>
+        </div>
+
+        {/* Layer C: Blind Spot */}
+        <div className="bg-[var(--sillage-gold)]/5 p-8 border border-[var(--sillage-gold)]/40 relative">
+          <div className="absolute top-8 right-8 text-[var(--sillage-gold)] text-xl">⚑</div>
+          <h4 className="text-[0.65rem] uppercase tracking-widest text-[var(--sillage-gold)] mb-8">BLIND SPOT DETECTED</h4>
+          <div className="space-y-6">
+            <p className="text-[0.75rem] leading-relaxed text-[var(--sillage-white)]/80">
+              Customers who filter "unisex" represent 12% of sessions but 31% of revenue.
+              AOV: £192 vs £141 site average.
+            </p>
+            <p className="font-serif text-xl text-[var(--sillage-white)] leading-tight">
+              "They are converting despite Sillage. Not because of it."
+            </p>
+            <div className="pt-6 border-t border-[var(--sillage-gold)]/20">
+              <span className="text-[0.6rem] uppercase tracking-widest text-[var(--sillage-gold)] block mb-2">PRIORITY: URGENT</span>
+              <p className="text-[0.7rem] text-[var(--sillage-mist)]">Create a dedicated entry point for this cohort. Lead with frequency alignment, not gender categories.</p>
             </div>
           </div>
         </div>
 
-        <div className="border border-[#c8832a]/60 bg-[#c8832a]/5">
-          <div className="px-6 py-3 border-b border-[#c8832a]/20 flex justify-between items-center">
-            <span className="font-mono text-[0.6rem] uppercase tracking-widest text-[#c8832a]">Blind Spot Detected</span>
-            <span className="text-[#c8832a]">⚑</span>
-          </div>
-          <div className="p-8">
-            <p className="font-mono text-[0.7rem] tracking-tight opacity-80 mb-6 leading-relaxed">
-              Customers who filter "Unisex" have 40% higher LTV but represent only 12% of homepage traffic.
-            </p>
-            <p className="font-serif italic text-xl text-[#c8832a]">
-              "They are converting despite you."
-            </p>
-          </div>
-        </div>
       </div>
 
-      <style jsx>{`
-        .no-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        .no-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}</style>
     </div>
   );
 }
