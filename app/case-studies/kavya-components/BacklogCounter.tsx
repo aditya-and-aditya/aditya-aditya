@@ -19,19 +19,24 @@ export default function BacklogCounter() {
   const [selectedTicket, setSelectedTicket] = useState<string | null>(null);
 
   useEffect(() => {
-    let active = true;
-    let i = 0;
-    const timer = setInterval(() => {
-      if (!active) return;
-      if (i < initialTickets.length) {
-        setTickets(prev => [...prev, initialTickets[i]]);
-        i++;
-      } else {
+  let i = 0;
+
+  const timer = setInterval(() => {
+    setTickets(prev => {
+      if (i >= initialTickets.length) {
         clearInterval(timer);
+        return prev;
       }
-    }, 200);
-    return () => { active = false; clearInterval(timer); };
-  }, []);
+
+      const next = initialTickets[i];
+      i++;
+
+      return next ? [...prev, next] : prev;
+    });
+  }, 200);
+
+  return () => clearInterval(timer);
+}, []);
 
   return (
     <div className="w-full h-full bg-white p-12 flex flex-col perspective-[800px]">
