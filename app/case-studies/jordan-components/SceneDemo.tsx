@@ -195,7 +195,15 @@ function DemoUIState3() {
   );
 }
 
-function StakeholderRow({ name, role, status, isRed = false, isGreen = false }) {
+interface StakeholderRowProps {
+  name: string;
+  role: string;
+  status: string;
+  isRed?: boolean;
+  isGreen?: boolean;
+}
+
+function StakeholderRow({ name, role, status, isRed = false, isGreen = false }: StakeholderRowProps) {
   return (
     <div className="flex justify-between items-center text-xs py-2 border-b border-white/5">
       <span className="text-[var(--white)] font-bold">{name}</span>

@@ -4,6 +4,16 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChapterLabel, RevealText, SectionLine } from './Common';
 
+interface ScoreData {
+  label: string;
+  value: string;
+  conf: number;
+  data: number;
+  contra: string;
+  missing: string[];
+  change: string;
+}
+
 const scores = [
   {
     label: 'Deal Health',
@@ -44,7 +54,7 @@ const scores = [
 ];
 
 export default function SceneTruth() {
-  const [hoveredScore, setHoveredScore] = useState(null);
+  const [hoveredScore, setHoveredScore] = useState<ScoreData | null>(null);
 
   return (
     <section id="scene-truth" className="min-h-screen py-[var(--s-xl)] px-8 relative bg-[var(--black)] overflow-hidden">
@@ -142,7 +152,7 @@ export default function SceneTruth() {
   );
 }
 
-function Tooltip({ score }) {
+function Tooltip({ score }: {score: ScoreData}) {
   return (
     <motion.div
       initial={{ opacity: 0, x: 20, scale: 0.95 }}
