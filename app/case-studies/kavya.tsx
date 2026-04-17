@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { Cormorant_Garamond, Libre_Baskerville, Space_Mono, DM_Sans } from 'next/font/google';
 import Diptych from './kavya-components/Diptych';
@@ -391,22 +392,17 @@ export default function KavyaCaseStudy() {
             {/* CTA */}
             <div className="text-center">
                <h3 className="text-3xl font-display italic mb-12">Which layer are you ready to unify first?</h3>
-               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                  <div className="p-8 border border-[#B8973A]/20 bg-white hover:border-[#B8973A] transition-all group">
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                  <Link href="/#contact" className="p-8 border border-[#B8973A]/20 bg-white hover:border-[#B8973A] transition-all group">
                      <p className="font-mono text-[0.6rem] uppercase tracking-widest text-[#B8973A] mb-4">START WITH SALES</p>
                      <p className="font-serif italic text-sm text-[#0F0F0D] mb-8">Deploy the Deal Cockpit to one team. Measure. Expand.</p>
                      <button className="font-mono text-[0.7rem] uppercase tracking-[0.2em] font-bold group-hover:text-[#B8973A] transition-colors">Begin Pilot →</button>
-                  </div>
-                  <div className="p-8 border border-[#B8973A]/20 bg-white hover:border-[#B8973A] transition-all group">
+                  </Link>
+                  <Link href="/#contact" className="p-8 border border-[#B8973A]/20 bg-white hover:border-[#B8973A] transition-all group">
                      <p className="font-mono text-[0.6rem] uppercase tracking-widest text-[#B8973A] mb-4">TALK TO AN ARCHITECT</p>
                      <p className="font-serif italic text-sm text-[#0F0F0D] mb-8">Custom deployment scoped to your stack.</p>
                      <button className="font-mono text-[0.7rem] uppercase tracking-[0.2em] font-bold group-hover:text-[#B8973A] transition-colors">Schedule a Call →</button>
-                  </div>
-                  <div className="p-8 border border-[#B8973A]/20 bg-white hover:border-[#B8973A] transition-all group">
-                     <p className="font-mono text-[0.6rem] uppercase tracking-widest text-[#B8973A] mb-4">TECHNICAL OVERVIEW</p>
-                     <p className="font-serif italic text-sm text-[#0F0F0D] mb-8">APIs, SDKs, and integration specs.</p>
-                     <button className="font-mono text-[0.7rem] uppercase tracking-[0.2em] font-bold group-hover:text-[#B8973A] transition-colors">View Docs →</button>
-                  </div>
+                  </Link>
                </div>
             </div>
          </section>
