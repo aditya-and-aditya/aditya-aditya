@@ -123,37 +123,7 @@ export default function JewelIntelligence() {
 
   return (
     <div className={`${cormorant.variable} ${dmSans.variable} ${cinzel.variable} bg-[#0e0c13] text-[#f2ece0] selection:bg-[#c9a84c]/30 selection:text-[#f2ece0] transition-colors duration-500`}>
-      {/* Grain Overlay */}
-      <div className="grain fixed inset-0 pointer-events-none z-[999] opacity-[0.035]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-          backgroundSize: '200px 200px'
-        }}
-      />
-
-      {/* Scroll Progress Track */}
-      <div className="scroll-track fixed left-8 top-1/2 -translate-y-1/2 w-[1px] h-40 bg-[#c9a84c]/10 z-[100] hidden md:block">
-        <motion.div
-          className="scroll-fill w-full bg-[#c9a84c] origin-top"
-          style={{ height: '100%', scaleY }}
-        />
-      </div>
-
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-[110] px-12 py-8 flex justify-between items-center backdrop-blur-md bg-[#0e0c13]/50 border-b border-[#c9a84c]/10">
-        <span className="font-cinzel text-xl tracking-[0.3em] text-[#c9a84c]">JEWEL INTELLIGENCE</span>
-        <div className="hidden lg:flex gap-8">
-          {pillars.map(p => (
-            <button
-              key={p.id}
-              onClick={() => document.getElementById(p.id)?.scrollIntoView({ behavior: 'smooth' })}
-              className={`text-[0.6rem] uppercase tracking-[0.3em] font-sans transition-all duration-300 ${activePillar === p.id ? 'text-[#c9a84c]' : 'text-[#f2ece0]/40 hover:text-[#f2ece0]'}`}
-            >
-              {p.title}
-            </button>
-          ))}
-        </div>
-      </nav>
+      
 
       {/* Hero Section */}
       <section className="relative h-screen flex flex-col items-center justify-center p-8 overflow-hidden">

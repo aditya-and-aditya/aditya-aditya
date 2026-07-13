@@ -54,8 +54,8 @@ export default function Contact() {
     {
       icon: Mail,
       label: 'Email',
-      value: 'aditya2square@gmail.com',
-      href: 'mailto:aditya2square@gmail.com',
+      value: 'dixit@adityaandaditya.tech',
+      href: 'mailto:dixit@adityaandaditya.tech',
     },
     {
       icon: Phone,
