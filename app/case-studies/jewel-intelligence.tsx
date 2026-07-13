@@ -253,7 +253,7 @@ export default function JewelIntelligence() {
         <div>Aditya & Aditya — Jewel Intelligence Architecture</div>
         <div className="flex gap-12">
           <span>adityaandaditya.tech</span>
-          <span>hello@adityaandaditya.tech</span>
+          <span>dixit@adityaandaditya.tech</span>
         </div>
       </footer>
 
